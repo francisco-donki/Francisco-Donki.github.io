@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Grimorio de Nuestra Eternidad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Crimson+Text:ital,wght@0,400;1,600&family=Great+Vibes&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --leather: #1e0f0b;
+            --gold: #c5a059;
+            --iron: #222;
+            --paper: #c2a379;
+            --ember: #ff4500;
+            --book-w: clamp(240px, 65vw, 320px); 
+            --book-h: clamp(400px, 75vh, 540px);
+            --thickness: 55px;
+        }
+
+        body {
+            margin: 0; height: 100vh; display: flex;
+            justify-content: center; align-items: center;
+            background: #000; overflow: hidden; perspective: 3000px;
+            touch-action: none;
+        }
+
+        .table {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(139, 69, 19, var(--glow, 0)) 0%, transparent 70%),
+                        url('https://www.transparenttextures.com/patterns/dark-wood.png'), #0a0806;
+            z-index: 1; transition: 2.5s;
+        }
+
+        .ambient-light {
+            position: absolute; width: 100%; height: 100%;
+            background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+                        transparent 0%, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.98) 90%);
+            z-index: 99; pointer-events: none;
+        }
+
+        .book-container {
+            position: relative; width: var(--book-w); height: var(--book-h);
+            z-index: 50; transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 1.5s;
+            filter: drop-shadow(30px 40px 50px rgba(0,0,0,0.9));
+        }
+
+        .book { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; }
+
+        .book-spine {
+            position: absolute; width: var(--thickness); height: 100%;
+            left: calc(var(--thickness) / -2); background: var(--leather);
+            transform: rotateY(-90deg); transform-origin: right;
+            background-image: linear-gradient(to bottom, transparent 15%, #000 16%, #000 18%, transparent 19%, transparent 45%, #000 46%, #000 48%, transparent 49%, transparent 75%, #000 76%, #000 78%, transparent 79%);
+        }
+
+        .book-depth {
+            position: absolute; right: calc(var(--thickness) * -0.5);
+            width: var(--thickness); height: 98%; top: 1%;
+            background: #b19163 repeating-linear-gradient(to right, transparent, transparent 1px, rgba(0,0,0,0.15) 2px);
+            transform: rotateY(90deg); box-shadow: inset 10px 0 20px rgba(0,0,0,0.5);
+        }
+
+        .leaf {
+            position: absolute; width: 100%; height: 100%;
+            top: 0; left: 0; transform-origin: left; transform-style: preserve-3d;
+            transition: transform 1.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
+
+        .page-face {
+            position: absolute; width: 100%; height: 100%;
+            backface-visibility: hidden; padding: 30px; box-sizing: border-box;
+            background: var(--paper) url('https://www.transparenttextures.com/patterns/old-map.png');
+            box-shadow: inset 10px 0 30px rgba(0,0,0,0.2);
+            border-radius: 2px 12px 12px 2px;
+        }
+
+        .front-cover {
+            background: var(--leather) url('https://www.transparenttextures.com/patterns/leather.png') !important;
+            box-shadow: inset -10px 0 20px rgba(0,0,0,0.5), inset 10px 0 20px rgba(255,255,255,0.05) !important;
+        }
+
+        .iron-corner {
+            position: absolute; width: 70px; height: 70px; background: var(--iron);
+            clip-path: polygon(0 0, 100% 0, 100% 20%, 20% 100%, 0 100%);
+            filter: drop-shadow(3px 3px 2px #000); z-index: 5;
+        }
+        .top-left { top: 0; left: 0; }
+        .bottom-left { bottom: 0; left: 0; transform: scaleY(-1); }
+
+        .lock-clasp {
+            position: absolute; right: -15px; top: 50%; width: 45px; height: 90px;
+            background: linear-gradient(145deg, #333, #000); transform: translateY(-50%);
+            border-radius: 5px; box-shadow: 10px 10px 20px #000; z-index: 100;
+            transition: 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); border: 1px solid #444;
+        }
+        .lock-open { transform: translateY(-50%) rotateY(-120deg) translateX(20px); opacity: 0; }
+
+        .back { transform: rotateY(180deg); }
+        .flipped { transform: rotateY(-165deg); }
+
+        /* --- EFECTO DE FOTO QUEMADA --- */
+        .photo-frame {
+            position: relative; width: 100%; height: 45%; margin-bottom: 20px;
+            background: #111; padding: 8px; box-sizing: border-box;
+            /* Borde roto */
+            clip-path: polygon(
+                2% 0%, 95% 2%, 100% 5%, 98% 95%, 95% 100%, 
+                5% 98%, 0% 90%, 2% 10%
+            );
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+        }
+
+        .img-content {
+            width: 100%; height: 100%; background-size: cover; background-position: center;
+            filter: sepia(0.6) contrast(1.2) brightness(0.8) grayscale(0.3);
+            position: relative;
+        }
+
+        /* Capa de quemaduras y desgaste */
+        .burn-overlay {
+            position: absolute; inset: 0;
+            background: 
+                /* Manchas de quemado */
+                radial-gradient(circle at 10% 10%, transparent 40%, rgba(0,0,0,0.8) 90%),
+                radial-gradient(circle at 90% 80%, transparent 30%, rgba(40,20,0,0.7) 80%),
+                /* Textura de ceniza */
+                url('https://www.transparenttextures.com/patterns/stardust.png');
+            mix-blend-mode: multiply;
+            pointer-events: none;
+        }
+
+        /* Bordes carbonizados */
+        .photo-frame::after {
+            content: ''; position: absolute; inset: 0;
+            box-shadow: inset 0 0 20px 10px rgba(0,0,0,0.9);
+            pointer-events: none;
+        }
+
+        .poem { font-family: 'Crimson Text', serif; font-style: italic; text-align: center; color: #2a1a1a; font-size: 0.95rem; line-height: 1.3; }
+        .magic-phrase { font-family: 'Great Vibes', cursive; font-size: 1.6rem; text-align: center; margin-top: auto; color: #5c4a33; border-top: 1px dashed rgba(0,0,0,0.2); padding-top: 8px; }
+
+        .carved-container {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 200; width: 85%; text-align: center; opacity: 0; visibility: hidden; transition: 3s;
+        }
+        .carved-text {
+            font-family: 'Cinzel Decorative', serif; font-size: clamp(1.2rem, 6vw, 2.5rem); color: #000;
+            text-shadow: 0 0 15px var(--ember), 0 0 30px #ff4500;
+            animation: burnEffect 2s infinite alternate;
+        }
+        @keyframes burnEffect { from { filter: brightness(1); transform: scale(1); } to { filter: brightness(1.8); transform: scale(1.02); } }
+		
+		/* --- LUZ DE VELA DINÁMICA --- */
+.ambient-light {
+    position: absolute; 
+    width: 100%; height: 100%;
+    /* El gradiente ahora simula el color cálido de la cera quemándose */
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), 
+                rgba(255, 160, 60, 0.2) 0%, 
+                rgba(255, 80, 0, 0.05) 20%, 
+                rgba(0,0,0,0.95) 60%);
+    z-index: 99; 
+    pointer-events: none;
+    transition: opacity 0.5s;
+}
+
+/* El "pabilo" o núcleo de la vela que sigue al mouse */
+.candle-glow {
+    position: fixed;
+    width: 10px; height: 10px;
+    background: #ffcc00;
+    border-radius: 50%;
+    filter: blur(8px);
+    box-shadow: 0 0 40px 20px #ff4500, 0 0 100px 50px rgba(255, 120, 0, 0.3);
+    z-index: 100;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    animation: flicker 0.1s infinite alternate;
+}
+
+@keyframes flicker {
+    0% { transform: scale(1); opacity: 0.9; }
+    100% { transform: scale(1.1); opacity: 1; filter: blur(10px); }
+}
+
+/* Ajuste adicional al quemado de las fotos para que reaccionen a la luz */
+.img-content {
+    filter: sepia(0.7) contrast(1.2) brightness(0.7);
+    transition: filter 0.3s;
+}
+
+/* --- EFECTO DE TEXTO MÁGICO --- */
+.highlight {
+    color: #8b4513; /* Tinta sepia oscura */
+    text-shadow: 0 0 0px transparent;
+    font-weight: 600;
+    position: relative;
+    display: inline-block;
+    animation: magicPulse 3s infinite ease-in-out;
+}
+
+@keyframes magicPulse {
+    0%, 100% {
+        color: #4a2c16;
+        text-shadow: 0 0 5px rgba(197, 160, 89, 0);
+        filter: brightness(1);
+    }
+    50% {
+        color: #c5a059; /* Color oro al brillar */
+        text-shadow: 0 0 10px rgba(197, 160, 89, 0.8), 0 0 20px rgba(255, 69, 0, 0.3);
+        filter: brightness(1.4);
+        transform: scale(1.02);
+    }
+}
+    </style>
+</head>
+<body>
+<div class="candle-glow" id="candle"></div>
+<div class="table" id="wood-table"></div>
+<div class="ambient-light" id="light"></div>
+
+<div class="carved-container" id="final-phrase">
+    <p class="carved-text">NUESTRAS ALMAS SON EL ÚNICO HECHIZO<br>QUE EL TIEMPO NO TIENE PODER PARA ROMPER.</p>
+</div>
+
+<div class="book-container" id="container">
+    <div class="book">
+    <div class="book-spine"></div>
+    <div class="book-depth" id="depth"></div>
+
+    <div class="leaf" style="z-index: 10;">
+        <div class="page-face front front-cover">
+            <div class="iron-corner top-left"></div>
+            <div class="iron-corner bottom-left"></div>
+            <div class="lock-clasp" id="clasp"></div>
+            <h1 style="color:var(--gold); text-align:center; margin-top:60%; font-family:'Cinzel Decorative'; font-size: 1.8rem; text-shadow: 3px 3px 5px #000;">ETERNIDAD</h1>
+        </div>
+        <div class="page-face back">
+            <div class="photo-frame">
+                <div class="img-content" style="background-image: url('img/1.jpg')"><div class="burn-overlay"></div></div>
+            </div>
+            <p class="poem">"En la piedra fría del viejo castillo, juramos que el tiempo sería nuestro brillo."</p>
+            <p class="magic-phrase">El <span class="highlight">Inicio</span></p>
+        </div>
+    </div>
+
+    <div class="leaf" style="z-index: 9;">
+        <div class="page-face front">
+            <div class="photo-frame">
+                <div class="img-content" style="background-image: url('img/2.jpg')"><div class="burn-overlay"></div></div>
+            </div>
+            <p class="poem">"Bajo la luna que todo lo ve, encontré en tus ojos mi única fe."</p>
+            <p class="magic-phrase">Página 2</p>
+        </div>
+        <div class="page-face back">
+            <div class="photo-frame">
+                <div class="img-content" style="background-image: url('img/3.jpg')"><div class="burn-overlay"></div></div>
+            </div>
+            <p class="poem">"Cada susurro perdido en el viento, grabó tu nombre en mi sentimiento."</p>
+            <p class="magic-phrase">Página 3</p>
+        </div>
+    </div>
+
+    <div class="leaf" style="z-index: 8;">
+        <div class="page-face front">
+            <div class="photo-frame">
+                <div class="img-content" style="background-image: url('img/4.jpg')"><div class="burn-overlay"></div></div>
+            </div>
+            <p class="poem">"Caminamos entre sombras y luz, cargando del mundo la antigua cruz."</p>
+            <p class="magic-phrase">Página 4</p>
+        </div>
+        <div class="page-face back">
+            <div class="photo-frame">
+                <div class="img-content" style="background-image: url('img/5.jpg')"><div class="burn-overlay"></div></div>
+            </div>
+            <p class="poem">"En el silencio de nuestro jardín, el amor es un sueño que no tiene fin."</p>
+            <p class="magic-phrase">Página 5</p>
+        </div>
+    </div>
+
+    <div class="leaf" style="z-index: 7;">
+        <div class="page-face front">
+            <div class="photo-frame">
+                <div class="img-content" style="background-image: url('img/6.jpg')"><div class="burn-overlay"></div></div>
+            </div>
+            <p class="poem">"A través de los siglos y el mar, tu risa es el faro que me hace llegar."</p>
+            <p class="magic-phrase">Página 6</p>
+        </div>
+        <div class="page-face back">
+            <div class="photo-frame">
+                <div class="img-content" style="background-image: url('img/7.jpg')"><div class="burn-overlay"></div></div>
+            </div>
+            <p class="poem">"Ni el fuego ni el hielo podrán separar, dos almas que el destino quiso juntar."</p>
+            <p class="magic-phrase">Página 7</p>
+        </div>
+    </div>
+
+    <div class="leaf" style="z-index: 6;">
+        <div class="page-face front">
+            <div class="photo-frame">
+                <div class="img-content" style="background-image: url('img/8.jpg')"><div class="burn-overlay"></div></div>
+            </div>
+            <p class="poem">"Cruzando el umbral final del tiempo, te amaré en cada aliento."</p>
+            <p class="magic-phrase">El Destino</p>
+        </div>
+        <div class="page-face back front-cover">
+            <div style="font-size: 5rem; text-align: center; margin-top: 50%; color: rgba(0,0,0,0.4); filter: drop-shadow(0 0 10px var(--gold));">✥</div>
+            <p style="color: var(--gold); text-align: center; font-family: 'Cinzel Decorative'; opacity: 0.5;">FINIS</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+const container = document.getElementById('container');
+const leaves = document.querySelectorAll('.leaf');
+const light = document.getElementById('light');
+const candle = document.getElementById('candle');
+const clasp = document.getElementById('clasp');
+const depth = document.getElementById('depth');
+
+let currentIndex = 0;
+let isOpening = false;
+
+// Efecto de vela que sigue al mouse con parpadeo
+const moveCandle = (e) => {
+    const x = e.clientX || (e.touches ? e.touches[0].clientX : 0);
+    const y = e.clientY || (e.touches ? e.touches[0].clientY : 0);
+    
+    // Actualiza la posición de la luz ambiental
+    light.style.setProperty('--x', x + 'px');
+    light.style.setProperty('--y', y + 'px');
+    
+    // Mueve el núcleo de la llama
+    candle.style.left = x + 'px';
+    candle.style.top = y + 'px';
+
+    // Pequeño parpadeo aleatorio en la intensidad de la luz
+    if (Math.random() > 0.9) {
+        light.style.opacity = Math.random() * (1 - 0.8) + 0.8;
+    }
+};
+
+window.addEventListener('mousemove', moveCandle);
+window.addEventListener('touchmove', moveCandle);
+
+// Lógica de apertura de páginas
+leaves.forEach((leaf, index) => {
+    leaf.onclick = () => {
+        if (index === currentIndex && !isOpening) {
+            if (index === 0) {
+                isOpening = true;
+                clasp.classList.add('lock-open');
+                setTimeout(() => {
+                    openLeaf(leaf, index);
+                    isOpening = false;
+                }, 600);
+            } else {
+                openLeaf(leaf, index);
+            }
+        }
+    };
+});
+
+function openLeaf(leaf, index) {
+    leaf.classList.add('flipped');
+    
+    if (index === 0) {
+        const moveX = "calc(var(--book-w) / 2)";
+        const scale = window.innerWidth < 768 ? "0.85" : "1";
+        container.style.transform = `translateX(${moveX}) scale(${scale})`;
+        depth.style.opacity = "0"; 
+    }
+
+    setTimeout(() => {
+        leaf.style.zIndex = 20 + index;
+    }, 700);
+
+    currentIndex++;
+
+    if (currentIndex === leaves.length) {
+        setTimeout(() => {
+            // El libro se desvanece y la vela se apaga un poco para la frase final
+            container.style.opacity = "0";
+            candle.style.filter = "grayscale(1) blur(20px)";
+            document.getElementById('final-phrase').style.visibility = "visible";
+            document.getElementById('final-phrase').style.opacity = "1";
+            document.getElementById('wood-table').style.setProperty('--glow', '1');
+        }, 1500);
+    }
+}
+</script>
+</body>
+</html>
