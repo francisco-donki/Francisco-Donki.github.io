@@ -14,16 +14,10 @@
 --left-page:#f4f4f4;
 }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI', Roboto, sans-serif;
-}
+*{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
 
 body{
-/* FONDO DINÁMICO */
-background: linear-gradient(-45deg, #e9ecef, #dee2e6, #caf0f8, #90e0ef);
+background: linear-gradient(-45deg, #d1d8e0, #a5d8ff, #74c0fc, #ced4da);
 background-size: 400% 400%;
 animation: gradientBG 15s ease infinite;
 height:100vh;
@@ -46,10 +40,9 @@ width:90vw;
 max-width:350px;
 aspect-ratio:3/4;
 transform-style:preserve-3d;
-box-shadow: 0 50px 100px rgba(0,0,0,0.2);
+box-shadow: 0 50px 100px rgba(0,0,0,0.3);
 }
 
-/* EFECTO HOJA IZQUIERDA AL VOLTEAR */
 .page{
 position:absolute;
 inset:0;
@@ -63,54 +56,49 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-backface-visibility:visible; /* Cambiado para ver el reverso */
+backface-visibility:visible;
 cursor:pointer;
 z-index:calc(20 - var(--i));
 border: 1px solid rgba(0,0,0,0.1);
-transition: box-shadow 0.3s;
 }
 
-/* El reverso de la página (lo que queda a la izquierda) */
 .page-back {
 position: absolute;
 inset: 0;
-background: linear-gradient(to left, var(--left-page), #ffffff);
+background: linear-gradient(to left, #e9ecef, #ffffff);
 transform: rotateY(-180deg);
 backface-visibility: hidden;
 display: flex;
 justify-content: center;
 align-items: center;
 border-radius: 15px 4px 4px 15px;
-box-shadow: inset -10px 0 20px rgba(0,0,0,0.05);
+box-shadow: inset -10px 0 20px rgba(0,0,0,0.1);
 }
 
 .photo-slot {
 width: 100%;
-height: 150px;
-background: #eee;
+height: 140px;
+background: #f8f9fa;
 margin-bottom: 15px;
 border-radius: 10px;
 overflow: hidden;
-border: 1px solid var(--blue);
+border: 2px dashed var(--blue);
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .photo-slot img { width: 100%; height: 100%; object-fit: cover; }
 
-.cover{
-background: linear-gradient(135deg, #023e8a 0%, #0077b6 100%);
-color:white;
-}
-
-h2{ font-size: 18px; color: var(--blue); margin-bottom: 10px; font-weight: 800; }
+h2{ font-size: 17px; color: var(--blue); margin-bottom: 8px; font-weight: 800; text-transform: uppercase; }
 .cover h2 { color: #ade8f4; }
-p{ font-size: 14px; color: #333; line-height: 1.5; }
+p{ font-size: 14px; color: #444; line-height: 1.4; font-weight: 500; }
 
-/* FINAL MEJORADO */
 #final{
 position:fixed;
 inset:0;
-background: rgba(0, 119, 182, 0.85);
-backdrop-filter: blur(10px);
+background: rgba(3, 4, 94, 0.9);
+backdrop-filter: blur(15px);
 display:none;
 flex-direction:column;
 justify-content:center;
@@ -124,17 +112,11 @@ z-index: 100;
 background: white;
 padding: 30px;
 border-radius: 20px;
-box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-max-width: 400px;
-transform: scale(0.9);
-animation: popIn 0.8s cubic-bezier(0.17, 0.89, 0.32, 1.49) forwards;
+box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+max-width: 380px;
 }
 
-@keyframes popIn { to { transform: scale(1); } }
-
-.final-card h1 { color: var(--blue); font-size: 24px; margin-bottom: 15px; }
-.final-card p { color: #444; font-size: 16px; margin-bottom: 10px; }
-
+.final-card h1 { color: var(--blue); font-size: 26px; margin-bottom: 10px; }
 .btn{
 margin-top: 20px;
 padding:12px 30px;
@@ -144,16 +126,10 @@ background: var(--blue);
 color:white;
 font-weight:bold;
 cursor:pointer;
-transition: transform 0.2s;
 }
-.btn:hover { transform: scale(1.05); }
 
 .heart{ position:absolute; bottom:-20px; animation:float 4s linear forwards; z-index: 110; }
-
-@keyframes float{
-0%{transform:translateY(0) rotate(0deg); opacity: 1;}
-100%{transform:translateY(-110vh) rotate(360deg); opacity:0;}
-}
+@keyframes float{ 0%{transform:translateY(0) rotate(0deg); opacity:1;} 100%{transform:translateY(-110vh) rotate(360deg); opacity:0;} }
 </style>
 </head>
 
@@ -161,69 +137,70 @@ transition: transform 0.2s;
 
 <div class="book" id="book">
     <div class="page cover" id="p1" style="--i:1">
-        <div style="font-size: 50px;">📂</div>
+        <div style="font-size: 50px;">📑</div>
         <h1>AUDITORÍA DE AFECTO</h1>
         <h2>Expediente 14-F</h2>
-        <p style="color:white;">Recursos Humanos Salud<br>Validación de Lazos 2026</p>
-        <div class="page-back">📖</div>
+        <p style="color:white;">RECURSOS HUMANOS SALUD<br>Clasificación: Confidencial / Muy Queridos</p>
+        <div class="page-back">📤</div>
     </div>
 
     <div class="page" id="p2" style="--i:2">
         <div class="photo-slot"><img src="https://picsum.photos/id/447/400/300"></div>
-        <h2>Sector Salud</h2>
-        <p>Gestionar a quienes cuidan de otros es una labor de amor que no aparece en los manuales.</p>
-        <div class="page-back">🏥</div>
+        <h2>Manejo de Personal</h2>
+        <p>Gestionar a miles de empleados es como cuidar un hospital en plena crisis... pero sin café y con muchos "es que mi jefe no me avisó".</p>
+        <div class="page-back">👩‍⚕️</div>
     </div>
 
     <div class="page" id="p3" style="--i:3">
-        <div class="photo-slot"><img src="https://picsum.photos/id/20/400/300"></div>
-        <h2>Nómina Estatal</h2>
-        <p>Entre miles de renglones y conceptos, el valor más alto siempre es su dedicación diaria.</p>
-        <div class="page-back">💵</div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/160/400/300"></div>
+        <h2>La Nómina</h2>
+        <p>Si la nómina sale bien, nadie dice nada. Si sale un peso mal, ¡hasta los fantasmas del hospital nos reclaman! Gracias por aguantar el estrés.</p>
+        <div class="page-back">💸</div>
     </div>
 
     <div class="page" id="p4" style="--i:4">
         <div class="photo-slot"><img src="https://picsum.photos/id/357/400/300"></div>
-        <h2>Asistencia</h2>
-        <p>No hay retardo que afecte este equipo; nuestra puntualidad es con el corazón y el apoyo mutuo.</p>
-        <div class="page-back">⏰</div>
+        <h2>Incidencias</h2>
+        <p>¿Falta justificada? ¿Retardo por tráfico? Aquí la única incidencia que no perdonamos es que no nos hayamos tomado una coca juntos.</p>
+        <div class="page-back">⏳</div>
     </div>
 
     <div class="page" id="p5" style="--i:5">
-        <div class="photo-slot"><img src="https://picsum.photos/id/180/400/300"></div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/1/400/300"></div>
         <h2>Base de Datos</h2>
-        <p>En el gran Excel de la vida, su amistad es la única celda que siempre está protegida contra errores.</p>
-        <div class="page-back">📊</div>
+        <p>Nuestra relación es como el Excel: a veces se traba, a veces no carga, pero sin ustedes mi vida sería un #¡VALOR!</p>
+        <div class="page-back">💻</div>
     </div>
 
     <div class="page" id="p6" style="--i:6">
-        <div class="photo-slot"><img src="https://picsum.photos/id/486/400/300"></div>
-        <h2>Prestaciones</h2>
-        <p>Nuestra mayor seguridad social es saber que contamos los unos con los otros incondicionalmente.</p>
-        <div class="page-back">🛡️</div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/537/400/300"></div>
+        <h2>Auditoría SAT</h2>
+        <p>Si el SAT nos pide cuentas de nuestro cariño, tendríamos que declarar impuestos por exceso de buen equipo. ¡Estamos en saldo a favor!</p>
+        <div class="page-back">📈</div>
     </div>
 
     <div class="page" id="p7" style="--i:7">
-        <div class="photo-slot"><img src="https://picsum.photos/id/537/400/300"></div>
-        <h2>Auditoría SAT</h2>
-        <p>Si fiscalizaran el compañerismo, seríamos el equipo con mayor saldo a favor del estado.</p>
-        <div class="page-back">🧾</div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/2/400/300"></div>
+        <h2>Macros y Fórmulas</h2>
+        <p>Ni el BUSCARV más avanzado del mundo podría encontrar a un equipo tan fregón como este. ¡Son mi base de datos favorita!</p>
+        <div class="page-back">📁</div>
     </div>
 
     <div class="page" id="p8" style="--i:8">
         <div style="font-size: 50px;">📜</div>
         <h2>Dictamen Final</h2>
-        <p>Tras analizar cada detalle, el resultado es positivo: ¡Son un equipo extraordinario!</p>
-        <p style="font-weight:bold; margin-top:20px; color:var(--blue)">Haz clic para cerrar el expediente y recibir el dictamen.</p>
+        <p>Auditoría concluida: No hay errores en el sistema, solo un equipo que vale oro. Haz clic para cerrar el archivo y ver el resultado.</p>
         <div class="page-back">💙</div>
     </div>
 </div>
 
 <div id="final">
     <div class="final-card">
-        <h1>¡Feliz Día de la Amistad!</h1>
-        <p>Administrar el talento humano de todo un estado es un reto inmenso, pero hacerlo a su lado lo convierte en algo extraordinario.</p>
-        <p style="font-style: italic; font-size: 14px; margin-top: 15px; border-top: 1px solid #eee; pt-10">"El verdadero recurso humano es el afecto que nos une."</p>
+        <h1>¡Feliz 14 de Febrero!</h1>
+        <p>Porque sobrevivir a una quincena, a un cambio de leyes fiscales y a los Excels que no guardan, solo es posible gracias a su amistad.</p>
+        <p style="font-style: italic; font-size: 14px; margin-top: 15px; border-top: 1px solid #eee; padding-top:10px;">
+            "Eres el 'Guardar' de mi archivo de la vida."
+        </p>
         <button class="btn" onclick="location.reload()">Reabrir Expediente</button>
     </div>
 </div>
@@ -236,17 +213,14 @@ let animating = false;
 document.querySelectorAll(".page").forEach(page=>{
     page.addEventListener("click",()=>{
         if(animating || page.id !== `p${current}`) return;
-
         animating = true;
         
-        // Elevamos un poco la página al voltearla para efecto 3D
         gsap.to(page, {
             duration: 1.2,
             rotationY: -180,
-            x: -10, // Desplazamiento ligero a la izquierda para el lomo
+            x: -15, 
             ease: "power2.inOut",
             onComplete: () => {
-                // Mantenemos la página ahí pero bajamos su z-index para que la siguiente quede arriba
                 page.style.zIndex = current; 
                 animating = false;
             }
@@ -270,7 +244,8 @@ function createHearts(){
     setInterval(()=>{
         const h=document.createElement("div");
         h.className="heart";
-        h.innerHTML=["💖","❤️","💙","✨","💉"][Math.floor(Math.random()*5)];
+        // Añadí emojis de oficina y salud
+        h.innerHTML=["💖","❤️","💻","🏥","📄","✨"][Math.floor(Math.random()*6)];
         h.style.left=Math.random()*100+"vw";
         h.style.fontSize=(20+Math.random()*30)+"px";
         document.body.appendChild(h);
