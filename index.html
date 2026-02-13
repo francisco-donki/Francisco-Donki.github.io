@@ -9,7 +9,7 @@
 <style>
 :root{
 --blue:#0077b6;
---bg:#e5e5e5;
+--bg:#e9ecef;
 }
 
 *{
@@ -30,16 +30,16 @@ overflow:hidden;
 perspective:1200px;
 }
 
-/* CONTENEDOR RESPONSIVO */
-.book-container{
+/* LIBRO RESPONSIVO */
+.book{
 position:relative;
-width:90vw;              /* 👈 clave */
-max-width:320px;         /* límite en pantallas grandes */
-aspect-ratio: 3 / 4;     /* mantiene proporción */
+width:90vw;
+max-width:320px;
+aspect-ratio:3/4;
 transform-style:preserve-3d;
 }
 
-/* Lomo integrado sin salirse */
+/* LOMO */
 .spine{
 position:absolute;
 left:0;
@@ -50,7 +50,7 @@ border-radius:4px 0 0 4px;
 z-index:1;
 }
 
-/* PÁGINAS */
+/* PAGINAS */
 .page{
 position:absolute;
 inset:0;
@@ -66,8 +66,8 @@ align-items:center;
 text-align:center;
 box-shadow:3px 0 15px rgba(0,0,0,.2);
 backface-visibility:hidden;
-z-index:calc(10 - var(--i));
 cursor:pointer;
+z-index:calc(20 - var(--i));
 }
 
 .page-back{
@@ -88,21 +88,17 @@ color:white;
 }
 
 .icon{
-font-size:clamp(30px,8vw,45px);
+font-size:clamp(28px,8vw,45px);
 margin-bottom:10px;
 }
 
-h1{
-font-size:clamp(18px,5vw,22px);
-}
-
+h1{font-size:clamp(18px,5vw,22px);}
 h2{
 font-size:clamp(13px,3.5vw,16px);
 margin-bottom:8px;
 color:#0077b6;
 text-transform:uppercase;
 }
-
 .cover h2{color:white;}
 
 p{
@@ -120,11 +116,11 @@ color:#aaa;
 }
 
 /* FINAL */
-#final-screen{
+#final{
 position:fixed;
 inset:0;
 background:
-linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
 radial-gradient(circle,#0077b6,#001d3d);
 display:none;
 flex-direction:column;
@@ -133,15 +129,14 @@ align-items:center;
 text-align:center;
 padding:20px;
 color:white;
-overflow:hidden;
 }
 
-#final-screen h1{
+#final h1{
 font-size:clamp(20px,6vw,26px);
 margin-bottom:15px;
 }
 
-#final-screen p{
+#final p{
 font-size:clamp(14px,4vw,18px);
 max-width:90%;
 line-height:1.6;
@@ -157,11 +152,10 @@ color:#0077b6;
 font-weight:bold;
 }
 
-/* Corazones */
+/* CORAZONES */
 .heart{
 position:absolute;
 bottom:-20px;
-font-size:18px;
 animation:float 4s linear forwards;
 opacity:.9;
 }
@@ -175,40 +169,10 @@ opacity:.9;
 
 <body>
 
-<div class="book-container" id="book">
+<div class="book" id="book">
 <div class="spine"></div>
 
-<div class="page" id="p8" style="--i:8">
-<div class="icon">💘</div>
-<h2>Dictamen Final</h2>
-<p>"Revisamos nómina estatal y 52 Excels… y concluimos que este equipo está certificado en amistad."</p>
-<div class="page-back">❤️</div>
-<span class="page-num">8</span>
-</div>
-
-<div class="page" id="p7" style="--i:7">
-<div class="icon">📑</div>
-<h2>Declaración SAT</h2>
-<p>"El único ingreso libre de ISR aquí… es el cariño del equipo."</p>
-<div class="page-back">💌</div>
-<span class="page-num">7</span>
-</div>
-
-<div class="page" id="p6" style="--i:6">
-<div class="icon">📊</div>
-<h2>Base de Datos</h2>
-<p>"Nuestro Excel sostiene el sector salud… pero la fórmula más fuerte es el compañerismo."</p>
-<div class="page-back">📈</div>
-<span class="page-num">6</span>
-</div>
-
-<div class="page" id="p5" style="--i:5">
-<div class="icon">🔍</div>
-<h2>Auditoría</h2>
-<p>"Si el SAT auditara nuestro ambiente laboral… saldría con una sonrisa."</p>
-<div class="page-back">😊</div>
-<span class="page-num">5</span>
-</div>
+<!-- ORDEN CORRECTO -->
 
 <div class="page cover" id="p1" style="--i:1">
 <div class="icon">📂</div>
@@ -217,12 +181,52 @@ opacity:.9;
 <p style="color:white;margin-top:10px;">
 Auditoría Especial – Día del Amor y la Amistad
 </p>
-<span class="page-num">2026</span>
+<span class="page-num">1</span>
+</div>
+
+<div class="page" id="p2" style="--i:2">
+<div class="icon">🏥</div>
+<h2>Sector Salud</h2>
+<p>Administrar el talento humano de todo un estado es un reto… hacerlo con amistad es un privilegio.</p>
+<div class="page-back">💞</div>
+<span class="page-num">2</span>
+</div>
+
+<div class="page" id="p3" style="--i:3">
+<div class="icon">💼</div>
+<h2>Nómina Estatal</h2>
+<p>Entre cálculos, incidencias y validaciones… el verdadero balance siempre es el compañerismo.</p>
+<div class="page-back">💙</div>
+<span class="page-num">3</span>
+</div>
+
+<div class="page" id="p4" style="--i:4">
+<div class="icon">📊</div>
+<h2>Base de Datos</h2>
+<p>Nuestro Excel puede sostener miles de registros… pero la amistad es la fórmula que nunca falla.</p>
+<div class="page-back">📈</div>
+<span class="page-num">4</span>
+</div>
+
+<div class="page" id="p5" style="--i:5">
+<div class="icon">🔍</div>
+<h2>Auditoría SAT</h2>
+<p>Si el SAT auditara nuestro ambiente laboral… saldría con una sonrisa.</p>
+<div class="page-back">😊</div>
+<span class="page-num">5</span>
+</div>
+
+<div class="page" id="p6" style="--i:6">
+<div class="icon">💘</div>
+<h2>Dictamen Final</h2>
+<p>Revisamos nómina, incidencias y 52 Excels… y confirmamos que este equipo está certificado en amistad.</p>
+<div class="page-back">❤️</div>
+<span class="page-num">6</span>
 </div>
 
 </div>
 
-<div id="final-screen">
+<div id="final">
 <h1>¡Feliz Día del Amor y la Amistad!</h1>
 <p>
 Gestionar Recursos Humanos del sector salud de todo un estado es enorme…  
@@ -232,18 +236,18 @@ pero hacerlo con ustedes lo convierte en algo extraordinario.
 </div>
 
 <script>
-let current=1;
-const total=8;
-let animating=false;
-const finalScreen=document.getElementById("final-screen");
+let current = 1;
+const total = 6;
+let animating = false;
+const final = document.getElementById("final");
 
 document.querySelectorAll(".page").forEach(page=>{
 page.addEventListener("pointerup",()=>{
 
 if(animating) return;
-if(page.id!==`p${current}`) return;
+if(page.id !== `p${current}`) return;
 
-animating=true;
+animating = true;
 
 gsap.to(page,{
 duration:1,
@@ -260,22 +264,22 @@ current++;
 if(current>total){
 setTimeout(()=>{
 document.getElementById("book").style.display="none";
-finalScreen.style.display="flex";
-hearts();
+final.style.display="flex";
+createHearts();
 },1000);
 }
 
 });
 });
 
-function hearts(){
+function createHearts(){
 setInterval(()=>{
 const h=document.createElement("div");
 h.className="heart";
 h.innerHTML="💖";
 h.style.left=Math.random()*100+"vw";
 h.style.fontSize=(16+Math.random()*18)+"px";
-finalScreen.appendChild(h);
+final.appendChild(h);
 setTimeout(()=>h.remove(),4000);
 },350);
 }
