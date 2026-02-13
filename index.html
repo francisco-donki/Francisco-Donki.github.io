@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expediente RRHH Salud</title>
+<title>Expediente RRHH Salud - 14 Feb</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <style>
 :root{
 --blue:#0077b6;
+--light-blue:#caf0f8;
 --bg:#e9ecef;
 }
 
@@ -16,7 +17,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 -webkit-tap-highlight-color:transparent;
 }
 
@@ -27,142 +28,116 @@ display:flex;
 justify-content:center;
 align-items:center;
 overflow:hidden;
-perspective:1200px;
+perspective:1500px;
 }
 
-/* LIBRO RESPONSIVO */
+/* LIBRO */
 .book{
 position:relative;
 width:90vw;
-max-width:320px;
+max-width:340px;
 aspect-ratio:3/4;
 transform-style:preserve-3d;
 }
 
-/* LOMO */
-.spine{
-position:absolute;
-left:0;
-width:6px;
-height:100%;
-background:linear-gradient(to right,#bbb,#eee);
-border-radius:4px 0 0 4px;
-z-index:1;
-}
-
-/* PAGINAS */
 .page{
 position:absolute;
 inset:0;
 background:white;
-border-radius:6px 16px 16px 6px;
+border-radius:4px 12px 12px 4px;
 transform-origin:left center;
 transform-style:preserve-3d;
-padding:6%;
+padding:20px;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-box-shadow:3px 0 15px rgba(0,0,0,.2);
+box-shadow:5px 0 15px rgba(0,0,0,.1);
 backface-visibility:hidden;
 cursor:pointer;
 z-index:calc(20 - var(--i));
+border: 1px solid #ddd;
 }
 
-.page-back{
-position:absolute;
-inset:0;
-background:#f2f2f2;
-transform:rotateY(-180deg);
-backface-visibility:hidden;
-display:flex;
-justify-content:center;
-align-items:center;
-border-radius:16px 6px 6px 16px;
+/* Imagen en la página */
+.photo-slot {
+width: 100%;
+height: 120px;
+background: #f0f0f0;
+margin-bottom: 15px;
+border-radius: 8px;
+overflow: hidden;
+display: flex;
+justify-content: center;
+align-items: center;
+border: 2px dashed var(--blue);
+}
+
+.photo-slot img {
+width: 100%;
+height: 100%;
+object-fit: cover;
 }
 
 .cover{
-background:linear-gradient(135deg,#0077b6,#00b4d8);
+background: linear-gradient(135deg, #023e8a, #0077b6);
 color:white;
+border: none;
 }
 
-.icon{
-font-size:clamp(28px,8vw,45px);
-margin-bottom:10px;
-}
-
-h1{font-size:clamp(18px,5vw,22px);}
-h2{
-font-size:clamp(13px,3.5vw,16px);
-margin-bottom:8px;
-color:#0077b6;
-text-transform:uppercase;
-}
-.cover h2{color:white;}
-
-p{
-font-size:clamp(12px,3.5vw,14px);
-line-height:1.4;
-color:#444;
-}
+.icon{ font-size: 40px; margin-bottom: 10px; }
+h1{ font-size: 20px; margin-bottom: 5px; }
+h2{ font-size: 16px; color: var(--blue); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
+.cover h2 { color: #ade8f4; }
+p{ font-size: 13px; color: #555; line-height: 1.5; padding: 0 10px; }
 
 .page-num{
 position:absolute;
 bottom:10px;
-right:14px;
-font-size:11px;
-color:#aaa;
+right:15px;
+font-size:10px;
+color:#bbb;
 }
 
 /* FINAL */
 #final{
 position:fixed;
 inset:0;
-background:
-linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
-radial-gradient(circle,#0077b6,#001d3d);
+background: radial-gradient(circle, #0077b6, #001d3d);
 display:none;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-padding:20px;
+padding:30px;
 color:white;
+z-index: 100;
 }
 
-#final h1{
-font-size:clamp(20px,6vw,26px);
-margin-bottom:15px;
-}
-
-#final p{
-font-size:clamp(14px,4vw,18px);
-max-width:90%;
-line-height:1.6;
-}
+#final h1 { font-size: 28px; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
+#final p { font-size: 18px; color: white; margin-bottom: 30px; }
 
 .btn{
-margin-top:25px;
-padding:12px 30px;
+padding:12px 25px;
 border:none;
-border-radius:30px;
+border-radius:25px;
 background:white;
-color:#0077b6;
+color:var(--blue);
 font-weight:bold;
+cursor:pointer;
+box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* CORAZONES */
 .heart{
 position:absolute;
 bottom:-20px;
 animation:float 4s linear forwards;
-opacity:.9;
 }
 
 @keyframes float{
-0%{transform:translateY(0);}
-100%{transform:translateY(-110vh);opacity:0;}
+0%{transform:translateY(0) rotate(0deg);}
+100%{transform:translateY(-110vh) rotate(360deg);opacity:0;}
 }
 </style>
 </head>
@@ -170,118 +145,129 @@ opacity:.9;
 <body>
 
 <div class="book" id="book">
-<div class="spine"></div>
+    <div class="page cover" id="p1" style="--i:1">
+        <div class="icon">📁</div>
+        <h1>AUDITORÍA DE AFECTO</h1>
+        <h2>Expediente 14-F</h2>
+        <p style="color:white; opacity:0.9">Personal del Sector Salud:<br>Validación de Lazos 2026</p>
+        <span class="page-num">1</span>
+    </div>
 
-<!-- ORDEN CORRECTO -->
+    <div class="page" id="p2" style="--i:2">
+        <div class="photo-slot">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=300&q=80" alt="Salud">
+        </div>
+        <h2>Cuidado Humano</h2>
+        <p>Gestionar a quienes cuidan de otros es una labor de amor que no aparece en ningún manual.</p>
+        <span class="page-num">2</span>
+    </div>
 
-<div class="page cover" id="p1" style="--i:1">
-<div class="icon">📂</div>
-<h1>EXPEDIENTE 14-F</h1>
-<h2>RRHH SECTOR SALUD</h2>
-<p style="color:white;margin-top:10px;">
-Auditoría Especial – Día del Amor y la Amistad
-</p>
-<span class="page-num">1</span>
-</div>
+    <div class="page" id="p3" style="--i:3">
+        <div class="photo-slot">
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=300&q=80" alt="Nomina">
+        </div>
+        <h2>Nómina Estatal</h2>
+        <p>Entre miles de renglones y percepciones, el valor más alto siempre es su dedicación.</p>
+        <span class="page-num">3</span>
+    </div>
 
-<div class="page" id="p2" style="--i:2">
-<div class="icon">🏥</div>
-<h2>Sector Salud</h2>
-<p>Administrar el talento humano de todo un estado es un reto… hacerlo con amistad es un privilegio.</p>
-<div class="page-back">💞</div>
-<span class="page-num">2</span>
-</div>
+    <div class="page" id="p4" style="--i:4">
+        <div class="photo-slot">
+            <img src="https://images.unsplash.com/photo-1454165833767-02a6ed8a4996?auto=format&fit=crop&w=300&q=80" alt="Incidencias">
+        </div>
+        <h2>Control de Asistencia</h2>
+        <p>No hay retardo ni falta que afecte este equipo; nuestra puntualidad es con el corazón.</p>
+        <span class="page-num">4</span>
+    </div>
 
-<div class="page" id="p3" style="--i:3">
-<div class="icon">💼</div>
-<h2>Nómina Estatal</h2>
-<p>Entre cálculos, incidencias y validaciones… el verdadero balance siempre es el compañerismo.</p>
-<div class="page-back">💙</div>
-<span class="page-num">3</span>
-</div>
+    <div class="page" id="p5" style="--i:5">
+        <div class="photo-slot">
+            <img src="https://images.unsplash.com/photo-1551288049-bbbda536ad3a?auto=format&fit=crop&w=300&q=80" alt="Datos">
+        </div>
+        <h2>Base de Datos</h2>
+        <p>En el gran Excel de la vida, su amistad es la única celda que siempre está protegida.</p>
+        <span class="page-num">5</span>
+    </div>
 
-<div class="page" id="p4" style="--i:4">
-<div class="icon">📊</div>
-<h2>Base de Datos</h2>
-<p>Nuestro Excel puede sostener miles de registros… pero la amistad es la fórmula que nunca falla.</p>
-<div class="page-back">📈</div>
-<span class="page-num">4</span>
-</div>
+    <div class="page" id="p6" style="--i:6">
+        <div class="photo-slot">
+            <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=300&q=80" alt="Prestaciones">
+        </div>
+        <h2>Prestaciones</h2>
+        <p>Nuestra mayor seguridad social es saber que contamos los unos con los otros cada día.</p>
+        <span class="page-num">6</span>
+    </div>
 
-<div class="page" id="p5" style="--i:5">
-<div class="icon">🔍</div>
-<h2>Auditoría SAT</h2>
-<p>Si el SAT auditara nuestro ambiente laboral… saldría con una sonrisa.</p>
-<div class="page-back">😊</div>
-<span class="page-num">5</span>
-</div>
+    <div class="page" id="p7" style="--i:7">
+        <div class="photo-slot">
+            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=300&q=80" alt="Auditoria">
+        </div>
+        <h2>Auditoría SAT</h2>
+        <p>Si el SAT fiscalizara el compañerismo, seríamos el equipo con mayor saldo a favor.</p>
+        <span class="page-num">7</span>
+    </div>
 
-<div class="page" id="p6" style="--i:6">
-<div class="icon">💘</div>
-<h2>Dictamen Final</h2>
-<p>Revisamos nómina, incidencias y 52 Excels… y confirmamos que este equipo está certificado en amistad.</p>
-<div class="page-back">❤️</div>
-<span class="page-num">6</span>
-</div>
-
+    <div class="page" id="p8" style="--i:8">
+        <div class="icon">📜</div>
+        <h2>Dictamen Final</h2>
+        <p>Tras analizar 52 semanas de esfuerzo, el resultado es positivo: ¡Son un equipo extraordinario!</p>
+        <p style="font-weight:bold; margin-top:10px; color:var(--blue)">Haz clic para cerrar el expediente.</p>
+        <span class="page-num">8</span>
+    </div>
 </div>
 
 <div id="final">
-<h1>¡Feliz Día del Amor y la Amistad!</h1>
-<p>
-Gestionar Recursos Humanos del sector salud de todo un estado es enorme…  
-pero hacerlo con ustedes lo convierte en algo extraordinario.
-</p>
-<button class="btn" onclick="location.reload()">Reabrir Expediente</button>
+    <h1>¡Feliz Día de la Amistad!</h1>
+    <p>Administrar el talento humano de todo un estado es un reto inmenso,<br> pero hacerlo a su lado es un honor invaluable.</p>
+    <p style="font-style: italic; font-size: 16px;">"El verdadero recurso humano es el afecto que nos une."</p>
+    <button class="btn" onclick="location.reload()">Reabrir Expediente</button>
 </div>
 
 <script>
 let current = 1;
-const total = 6;
+const total = 8;
 let animating = false;
 const final = document.getElementById("final");
 
 document.querySelectorAll(".page").forEach(page=>{
-page.addEventListener("pointerup",()=>{
+    page.addEventListener("pointerup",()=>{
+        if(animating) return;
+        if(page.id !== `p${current}`) return;
 
-if(animating) return;
-if(page.id !== `p${current}`) return;
+        animating = true;
 
-animating = true;
+        gsap.to(page,{
+            duration:1.2,
+            rotationY:-180,
+            ease:"power2.inOut",
+            onComplete:()=>{
+                page.style.pointerEvents="none";
+                animating=false;
+            }
+        });
 
-gsap.to(page,{
-duration:1,
-rotationY:-180,
-ease:"power2.inOut",
-onComplete:()=>{
-page.style.pointerEvents="none";
-animating=false;
-}
-});
+        current++;
 
-current++;
-
-if(current>total){
-setTimeout(()=>{
-document.getElementById("book").style.display="none";
-final.style.display="flex";
-createHearts();
-},1000);
-}
-
-});
+        if(current > total){
+            setTimeout(()=>{
+                document.getElementById("book").style.display="none";
+                final.style.display="flex";
+                createHearts();
+            }, 1200);
+        }
+    });
 });
 
 function createHearts(){
-setInterval(()=>{
-const h=document.createElement("div");
-h.className="heart";
-h.innerHTML="💖";
-h.style.left=Math.random()*100+"vw";
-h.style.fontSize=(16+Math.random()*18)+"px";
-final.appendChild(h);
-setTimeout(()=>h.remove(),4000);
-},350);
+    setInterval(()=>{
+        const h=document.createElement("div");
+        h.className="heart";
+        h.innerHTML=["💖","❤️","💙","🏥"][Math.floor(Math.random()*4)];
+        h.style.left=Math.random()*100+"vw";
+        h.style.fontSize=(16+Math.random()*24)+"px";
+        final.appendChild(h);
+        setTimeout(()=>h.remove(),4000);
+    }, 300);
 }
 </script>
 
