@@ -2,177 +2,197 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Expediente RRHH Salud</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <style>
 :root {
-    --medical-blue: #0077b6;
-    --paper: #ffffff;
+    --blue: #0077b6;
     --bg: #e5e5e5;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
     -webkit-tap-highlight-color: transparent;
 }
 
-body {
-    background-color: var(--bg);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    perspective: 1400px;
-    touch-action: manipulation;
+body{
+    background:var(--bg);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    perspective:1400px;
 }
 
-.book-container {
-    position: relative;
-    width: 300px;
-    height: 420px;
-    transform-style: preserve-3d;
-    transform: translateX(5%);
+/* Contenedor centrado REAL */
+.book-wrapper{
+    width:320px;
+    display:flex;
+    justify-content:center;
 }
 
-.spine {
-    position: absolute;
-    left: -8px;
-    width: 10px;
-    height: 100%;
-    background: linear-gradient(to right, #bbb, #eee);
-    border-radius: 5px 0 0 5px;
+.book-container{
+    position:relative;
+    width:280px;
+    height:400px;
+    transform-style:preserve-3d;
 }
 
-.page {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: var(--paper);
-    border-radius: 5px 15px 15px 5px;
-    transform-origin: left center;
-    transform-style: preserve-3d;
-    padding: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-    backface-visibility: hidden;
-    z-index: calc(10 - var(--page-index));
-    cursor: pointer;
-    user-select: none;
+.spine{
+    position:absolute;
+    left:-6px;
+    width:8px;
+    height:100%;
+    background:linear-gradient(to right,#bbb,#eee);
+    border-radius:4px 0 0 4px;
 }
 
-.page-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #f4f4f4;
-    transform: rotateY(-180deg);
-    backface-visibility: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px 5px 5px 15px;
+.page{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#fff;
+    border-radius:5px 15px 15px 5px;
+    transform-origin:left center;
+    transform-style:preserve-3d;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    box-shadow:2px 0 10px rgba(0,0,0,.15);
+    backface-visibility:hidden;
+    z-index:calc(10 - var(--i));
+    cursor:pointer;
+    user-select:none;
 }
 
-.cover {
-    background: linear-gradient(135deg, #0077b6, #00b4d8);
-    color: white;
+.page-back{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#f2f2f2;
+    transform:rotateY(-180deg);
+    backface-visibility:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:15px 5px 5px 15px;
 }
 
-.icon { font-size: 45px; margin-bottom: 15px; }
-h2 { color: #0077b6; font-size: 1rem; margin-bottom: 10px; text-transform: uppercase; }
-.cover h2 { color: white; }
-p { font-size: 0.9rem; color: #444; }
-
-.page-num {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    font-size: 0.7rem;
-    color: #aaa;
+.cover{
+    background:linear-gradient(135deg,#0077b6,#00b4d8);
+    color:white;
 }
 
-#final-screen {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: radial-gradient(circle, #0077b6, #001d3d);
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-    padding: 30px;
-    overflow: hidden;
+.icon{font-size:42px;margin-bottom:12px;}
+h2{color:#0077b6;font-size:.95rem;margin-bottom:8px;text-transform:uppercase;}
+.cover h2{color:white;}
+p{font-size:.85rem;color:#444;line-height:1.4;}
+
+.page-num{
+    position:absolute;
+    bottom:12px;
+    right:15px;
+    font-size:.7rem;
+    color:#aaa;
 }
 
-.btn-reload {
-    margin-top: 25px;
-    padding: 12px 30px;
-    background: white;
-    color: #0077b6;
-    border: none;
-    border-radius: 25px;
-    font-weight: bold;
+/* FINAL */
+#final-screen{
+    position:fixed;
+    inset:0;
+    background:
+        linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
+        radial-gradient(circle,#0077b6,#001d3d);
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+    color:white;
+    overflow:hidden;
 }
 
-.heart {
-    position: absolute;
-    bottom: -20px;
-    font-size: 20px;
-    animation: floatUp 4s linear infinite;
-    opacity: 0.8;
+#final-screen h1{
+    font-size:1.6rem;
+    margin-bottom:15px;
 }
 
-@keyframes floatUp {
-    0% { transform: translateY(0); opacity: 0.8; }
-    100% { transform: translateY(-110vh); opacity: 0; }
+#final-screen p{
+    font-size:1rem;
+    color:#f0f0f0;
+    max-width:320px;
+    line-height:1.6;
+}
+
+.btn{
+    margin-top:25px;
+    padding:12px 28px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:#0077b6;
+    font-weight:bold;
+}
+
+/* Corazones */
+.heart{
+    position:absolute;
+    bottom:-20px;
+    font-size:18px;
+    animation:float 4s linear forwards;
+    opacity:.8;
+}
+
+@keyframes float{
+    0%{transform:translateY(0) scale(1);}
+    100%{transform:translateY(-110vh) scale(1.6);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
+<div class="book-wrapper">
 <div class="book-container" id="book">
 <div class="spine"></div>
 
-<!-- PÁGINAS -->
+<!-- Páginas -->
 
-<div class="page" id="p8" style="--page-index:8;">
+<div class="page" id="p8" style="--i:8">
 <div class="icon">💘</div>
 <h2>Dictamen Final</h2>
-<p>"Revisamos nómina estatal, incidencias y 38 hojas de Excel… y concluimos que este equipo está oficialmente certificado en amistad."</p>
+<p>"Revisamos nómina estatal y 42 Excels… y confirmamos: este equipo está oficialmente certificado en amistad."</p>
 <div class="page-back">❤️</div>
 <span class="page-num">8</span>
 </div>
 
-<div class="page" id="p7" style="--page-index:7;">
+<div class="page" id="p7" style="--i:7">
 <div class="icon">📑</div>
 <h2>Declaración SAT</h2>
-<p>"Declaramos ante el SAT que el único ingreso libre de impuestos aquí… es el cariño del equipo."</p>
+<p>"El único ingreso libre de ISR aquí… es el cariño entre compañeros."</p>
 <div class="page-back">💌</div>
 <span class="page-num">7</span>
 </div>
 
-<div class="page" id="p6" style="--page-index:6;">
+<div class="page" id="p6" style="--i:6">
 <div class="icon">📊</div>
 <h2>Base de Datos</h2>
-<p>"Nuestro Excel puede calcular miles de registros… pero la fórmula más fuerte es el compañerismo."</p>
+<p>"Nuestro Excel sostiene al sector salud… pero la amistad es la fórmula que nunca falla."</p>
 <div class="page-back">📈</div>
 <span class="page-num">6</span>
 </div>
 
-<div class="page" id="p5" style="--page-index:5;">
+<div class="page" id="p5" style="--i:5">
 <div class="icon">🔍</div>
 <h2>Auditoría</h2>
 <p>"Si el SAT auditara nuestro ambiente laboral… saldría con una sonrisa."</p>
@@ -180,23 +200,23 @@ p { font-size: 0.9rem; color: #444; }
 <span class="page-num">5</span>
 </div>
 
-<div class="page" id="p4" style="--page-index:4;">
+<div class="page" id="p4" style="--i:4">
 <div class="icon">💼</div>
 <h2>Nómina Estatal</h2>
-<p>"Procesar la nómina del sector salud no es sencillo… pero juntos todo fluye mejor."</p>
+<p>"Procesar la nómina estatal es complejo… pero juntos todo fluye mejor."</p>
 <div class="page-back">💙</div>
 <span class="page-num">4</span>
 </div>
 
-<div class="page" id="p3" style="--page-index:3;">
+<div class="page" id="p3" style="--i:3">
 <div class="icon">☕</div>
 <h2>Incidencias</h2>
-<p>"Entre llamadas urgentes y reportes, siempre hay espacio para un café compartido."</p>
+<p>"Entre reportes y urgencias… siempre hay espacio para un café compartido."</p>
 <div class="page-back">✨</div>
 <span class="page-num">3</span>
 </div>
 
-<div class="page" id="p2" style="--page-index:2;">
+<div class="page" id="p2" style="--i:2">
 <div class="icon">🏥</div>
 <h2>Sector Salud</h2>
 <p>"Administrar el talento humano de todo un estado es un reto… hacerlo con amistad es un privilegio."</p>
@@ -204,77 +224,75 @@ p { font-size: 0.9rem; color: #444; }
 <span class="page-num">2</span>
 </div>
 
-<div class="page cover" id="p1" style="--page-index:1;">
+<div class="page cover" id="p1" style="--i:1">
 <div class="icon">📂</div>
 <h1>EXPEDIENTE 14-F</h1>
 <h2>RRHH SECTOR SALUD</h2>
-<p style="color:white; font-size:0.85rem; margin-top:15px;">
+<p style="color:white;margin-top:10px;">
 Auditoría Especial – Día del Amor y la Amistad
-</p>
-<p style="font-size:0.75rem; margin-top:20px; opacity:0.8;">
-Toca para abrir expediente
 </p>
 <span class="page-num">2026</span>
 </div>
 
 </div>
+</div>
 
 <div id="final-screen">
-<div style="font-size:60px;">🏥💖</div>
 <h1>¡Feliz Día del Amor y la Amistad!</h1>
-<p style="max-width:300px; margin-top:15px;">
-Gestionar RRHH del sector salud es enorme…  
-pero hacerlo con ustedes lo hace especial.
+<p>
+Gestionar Recursos Humanos del sector salud de todo un estado es enorme…  
+pero hacerlo con ustedes lo convierte en algo extraordinario.
 </p>
-<button class="btn-reload" onclick="location.reload()">Reabrir Expediente</button>
+<button class="btn" onclick="location.reload()">Reabrir Expediente</button>
 </div>
 
 <script>
 let current = 1;
 const total = 8;
-const finalScreen = document.getElementById('final-screen');
+let animating = false;
+const finalScreen = document.getElementById("final-screen");
 
-function flipPage() {
-if (current > total) return;
+document.querySelectorAll(".page").forEach(page=>{
+page.addEventListener("pointerup", ()=>{
 
-const pageToFlip = document.getElementById(`p${current}`);
+if(animating) return;
+if(page.id !== `p${current}`) return;
 
-gsap.to(pageToFlip, {
-duration: 1,
-rotationY: -180,
-ease: "power2.inOut",
-onComplete: () => {
-pageToFlip.style.pointerEvents = "none";
+animating = true;
+
+gsap.to(page,{
+duration:1,
+rotationY:-180,
+ease:"power2.inOut",
+onComplete:()=>{
+page.style.pointerEvents="none";
+animating=false;
 }
 });
 
 current++;
 
-if (current > total) {
-setTimeout(() => {
-document.getElementById('book').style.display = 'none';
-finalScreen.style.display = 'flex';
-createHearts();
-}, 1000);
-}
+if(current>total){
+setTimeout(()=>{
+document.getElementById("book").style.display="none";
+finalScreen.style.display="flex";
+hearts();
+},1000);
 }
 
-document.querySelectorAll('.page').forEach(page => {
-page.addEventListener('click', flipPage);
-page.addEventListener('touchstart', flipPage);
+});
 });
 
-function createHearts() {
-setInterval(() => {
-const heart = document.createElement("div");
-heart.classList.add("heart");
-heart.innerHTML = "💖";
-heart.style.left = Math.random() * 100 + "vw";
-heart.style.fontSize = (15 + Math.random() * 25) + "px";
-heart.style.animationDuration = (3 + Math.random() * 2) + "s";
-finalScreen.appendChild(heart);
-setTimeout(() => heart.remove(), 5000);
-}, 400);
+function hearts(){
+setInterval(()=>{
+const h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(16+Math.random()*20)+"px";
+finalScreen.appendChild(h);
+setTimeout(()=>h.remove(),4000);
+},350);
 }
 </script>
 
