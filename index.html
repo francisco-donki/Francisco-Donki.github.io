@@ -31,7 +31,6 @@ overflow:hidden;
 perspective:1500px;
 }
 
-/* LIBRO */
 .book{
 position:relative;
 width:90vw;
@@ -60,24 +59,39 @@ z-index:calc(20 - var(--i));
 border: 1px solid #ddd;
 }
 
-/* Imagen en la página */
+/* CONTENEDOR DE FOTO MEJORADO */
 .photo-slot {
 width: 100%;
-height: 120px;
-background: #f0f0f0;
+height: 140px;
+background: var(--light-blue);
 margin-bottom: 15px;
 border-radius: 8px;
 overflow: hidden;
 display: flex;
 justify-content: center;
 align-items: center;
-border: 2px dashed var(--blue);
+border: 1px solid #0077b633;
+position: relative;
 }
 
 .photo-slot img {
 width: 100%;
 height: 100%;
 object-fit: cover;
+display: block;
+}
+
+/* Icono de fondo por si la imagen falla */
+.photo-slot::before {
+content: "📸";
+font-size: 30px;
+position: absolute;
+z-index: 0;
+}
+
+.photo-slot img {
+position: relative;
+z-index: 1;
 }
 
 .cover{
@@ -88,9 +102,9 @@ border: none;
 
 .icon{ font-size: 40px; margin-bottom: 10px; }
 h1{ font-size: 20px; margin-bottom: 5px; }
-h2{ font-size: 16px; color: var(--blue); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;}
+h2{ font-size: 16px; color: var(--blue); margin-bottom: 8px; text-transform: uppercase; font-weight: bold;}
 .cover h2 { color: #ade8f4; }
-p{ font-size: 13px; color: #555; line-height: 1.5; padding: 0 10px; }
+p{ font-size: 13.5px; color: #444; line-height: 1.4; padding: 0 5px; }
 
 .page-num{
 position:absolute;
@@ -100,7 +114,6 @@ font-size:10px;
 color:#bbb;
 }
 
-/* FINAL */
 #final{
 position:fixed;
 inset:0;
@@ -115,10 +128,8 @@ color:white;
 z-index: 100;
 }
 
-#final h1 { font-size: 28px; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.3); }
-#final p { font-size: 18px; color: white; margin-bottom: 30px; }
-
 .btn{
+margin-top: 20px;
 padding:12px 25px;
 border:none;
 border-radius:25px;
@@ -126,7 +137,6 @@ background:white;
 color:var(--blue);
 font-weight:bold;
 cursor:pointer;
-box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
 .heart{
@@ -149,40 +159,40 @@ animation:float 4s linear forwards;
         <div class="icon">📁</div>
         <h1>AUDITORÍA DE AFECTO</h1>
         <h2>Expediente 14-F</h2>
-        <p style="color:white; opacity:0.9">Personal del Sector Salud:<br>Validación de Lazos 2026</p>
+        <p style="color:white; opacity:0.9">Recursos Humanos Salud<br>Validación de Lazos 2026</p>
         <span class="page-num">1</span>
     </div>
 
     <div class="page" id="p2" style="--i:2">
         <div class="photo-slot">
-            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=300&q=80" alt="Salud">
+            <img src="https://picsum.photos/id/447/400/300" alt="Salud">
         </div>
-        <h2>Cuidado Humano</h2>
-        <p>Gestionar a quienes cuidan de otros es una labor de amor que no aparece en ningún manual.</p>
+        <h2>Sector Salud</h2>
+        <p>Gestionar a quienes cuidan de otros es una labor de amor que no aparece en los manuales.</p>
         <span class="page-num">2</span>
     </div>
 
     <div class="page" id="p3" style="--i:3">
         <div class="photo-slot">
-            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=300&q=80" alt="Nomina">
+            <img src="https://picsum.photos/id/20/400/300" alt="Nomina">
         </div>
         <h2>Nómina Estatal</h2>
-        <p>Entre miles de renglones y percepciones, el valor más alto siempre es su dedicación.</p>
+        <p>Entre miles de renglones y conceptos, el valor más alto siempre es su dedicación.</p>
         <span class="page-num">3</span>
     </div>
 
     <div class="page" id="p4" style="--i:4">
         <div class="photo-slot">
-            <img src="https://images.unsplash.com/photo-1454165833767-02a6ed8a4996?auto=format&fit=crop&w=300&q=80" alt="Incidencias">
+            <img src="https://picsum.photos/id/357/400/300" alt="Incidencias">
         </div>
-        <h2>Control de Asistencia</h2>
-        <p>No hay retardo ni falta que afecte este equipo; nuestra puntualidad es con el corazón.</p>
+        <h2>Asistencia</h2>
+        <p>No hay retardo que afecte este equipo; nuestra puntualidad es con el corazón.</p>
         <span class="page-num">4</span>
     </div>
 
     <div class="page" id="p5" style="--i:5">
         <div class="photo-slot">
-            <img src="https://images.unsplash.com/photo-1551288049-bbbda536ad3a?auto=format&fit=crop&w=300&q=80" alt="Datos">
+            <img src="https://picsum.photos/id/180/400/300" alt="Datos">
         </div>
         <h2>Base de Datos</h2>
         <p>En el gran Excel de la vida, su amistad es la única celda que siempre está protegida.</p>
@@ -191,7 +201,7 @@ animation:float 4s linear forwards;
 
     <div class="page" id="p6" style="--i:6">
         <div class="photo-slot">
-            <img src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?auto=format&fit=crop&w=300&q=80" alt="Prestaciones">
+            <img src="https://picsum.photos/id/486/400/300" alt="Prestaciones">
         </div>
         <h2>Prestaciones</h2>
         <p>Nuestra mayor seguridad social es saber que contamos los unos con los otros cada día.</p>
@@ -200,7 +210,7 @@ animation:float 4s linear forwards;
 
     <div class="page" id="p7" style="--i:7">
         <div class="photo-slot">
-            <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=300&q=80" alt="Auditoria">
+            <img src="https://picsum.photos/id/537/400/300" alt="Auditoria">
         </div>
         <h2>Auditoría SAT</h2>
         <p>Si el SAT fiscalizara el compañerismo, seríamos el equipo con mayor saldo a favor.</p>
@@ -210,16 +220,16 @@ animation:float 4s linear forwards;
     <div class="page" id="p8" style="--i:8">
         <div class="icon">📜</div>
         <h2>Dictamen Final</h2>
-        <p>Tras analizar 52 semanas de esfuerzo, el resultado es positivo: ¡Son un equipo extraordinario!</p>
-        <p style="font-weight:bold; margin-top:10px; color:var(--blue)">Haz clic para cerrar el expediente.</p>
+        <p>Tras analizar cada detalle, el resultado es positivo: ¡Son un equipo extraordinario!</p>
+        <p style="font-weight:bold; margin-top:15px; color:var(--blue)">Haz clic para cerrar el expediente.</p>
         <span class="page-num">8</span>
     </div>
 </div>
 
 <div id="final">
     <h1>¡Feliz Día de la Amistad!</h1>
-    <p>Administrar el talento humano de todo un estado es un reto inmenso,<br> pero hacerlo a su lado es un honor invaluable.</p>
-    <p style="font-style: italic; font-size: 16px;">"El verdadero recurso humano es el afecto que nos une."</p>
+    <p>Administrar el talento humano de todo un estado es un reto inmenso, pero hacerlo a su lado es un honor invaluable.</p>
+    <p style="font-style: italic; font-size: 16px; opacity: 0.9;">"El verdadero recurso humano es el afecto que nos une."</p>
     <button class="btn" onclick="location.reload()">Reabrir Expediente</button>
 </div>
 
@@ -227,15 +237,12 @@ animation:float 4s linear forwards;
 let current = 1;
 const total = 8;
 let animating = false;
-const final = document.getElementById("final");
 
 document.querySelectorAll(".page").forEach(page=>{
-    page.addEventListener("pointerup",()=>{
-        if(animating) return;
-        if(page.id !== `p${current}`) return;
+    page.addEventListener("click",()=>{
+        if(animating || page.id !== `p${current}`) return;
 
         animating = true;
-
         gsap.to(page,{
             duration:1.2,
             rotationY:-180,
@@ -251,9 +258,9 @@ document.querySelectorAll(".page").forEach(page=>{
         if(current > total){
             setTimeout(()=>{
                 document.getElementById("book").style.display="none";
-                final.style.display="flex";
+                document.getElementById("final").style.display="flex";
                 createHearts();
-            }, 1200);
+            }, 1000);
         }
     });
 });
@@ -265,7 +272,7 @@ function createHearts(){
         h.innerHTML=["💖","❤️","💙","🏥"][Math.floor(Math.random()*4)];
         h.style.left=Math.random()*100+"vw";
         h.style.fontSize=(16+Math.random()*24)+"px";
-        final.appendChild(h);
+        document.getElementById("final").appendChild(h);
         setTimeout(()=>h.remove(),4000);
     }, 300);
 }
