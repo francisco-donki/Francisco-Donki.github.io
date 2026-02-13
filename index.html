@@ -7,171 +7,181 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <style>
-:root {
-    --blue: #0077b6;
-    --bg: #e5e5e5;
+:root{
+--blue:#0077b6;
+--bg:#e5e5e5;
 }
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-    -webkit-tap-highlight-color: transparent;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+-webkit-tap-highlight-color:transparent;
 }
 
 body{
-    background:var(--bg);
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-    perspective:1400px;
+background:var(--bg);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+perspective:1200px;
 }
 
-/* Contenedor centrado REAL */
-.book-wrapper{
-    width:320px;
-    display:flex;
-    justify-content:center;
-}
-
+/* CONTENEDOR RESPONSIVO */
 .book-container{
-    position:relative;
-    width:280px;
-    height:400px;
-    transform-style:preserve-3d;
+position:relative;
+width:90vw;              /* 👈 clave */
+max-width:320px;         /* límite en pantallas grandes */
+aspect-ratio: 3 / 4;     /* mantiene proporción */
+transform-style:preserve-3d;
 }
 
+/* Lomo integrado sin salirse */
 .spine{
-    position:absolute;
-    left:-6px;
-    width:8px;
-    height:100%;
-    background:linear-gradient(to right,#bbb,#eee);
-    border-radius:4px 0 0 4px;
+position:absolute;
+left:0;
+width:6px;
+height:100%;
+background:linear-gradient(to right,#bbb,#eee);
+border-radius:4px 0 0 4px;
+z-index:1;
 }
 
+/* PÁGINAS */
 .page{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:#fff;
-    border-radius:5px 15px 15px 5px;
-    transform-origin:left center;
-    transform-style:preserve-3d;
-    padding:20px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    box-shadow:2px 0 10px rgba(0,0,0,.15);
-    backface-visibility:hidden;
-    z-index:calc(10 - var(--i));
-    cursor:pointer;
-    user-select:none;
+position:absolute;
+inset:0;
+background:white;
+border-radius:6px 16px 16px 6px;
+transform-origin:left center;
+transform-style:preserve-3d;
+padding:6%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+box-shadow:3px 0 15px rgba(0,0,0,.2);
+backface-visibility:hidden;
+z-index:calc(10 - var(--i));
+cursor:pointer;
 }
 
 .page-back{
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:#f2f2f2;
-    transform:rotateY(-180deg);
-    backface-visibility:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-radius:15px 5px 5px 15px;
+position:absolute;
+inset:0;
+background:#f2f2f2;
+transform:rotateY(-180deg);
+backface-visibility:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+border-radius:16px 6px 6px 16px;
 }
 
 .cover{
-    background:linear-gradient(135deg,#0077b6,#00b4d8);
-    color:white;
+background:linear-gradient(135deg,#0077b6,#00b4d8);
+color:white;
 }
 
-.icon{font-size:42px;margin-bottom:12px;}
-h2{color:#0077b6;font-size:.95rem;margin-bottom:8px;text-transform:uppercase;}
+.icon{
+font-size:clamp(30px,8vw,45px);
+margin-bottom:10px;
+}
+
+h1{
+font-size:clamp(18px,5vw,22px);
+}
+
+h2{
+font-size:clamp(13px,3.5vw,16px);
+margin-bottom:8px;
+color:#0077b6;
+text-transform:uppercase;
+}
+
 .cover h2{color:white;}
-p{font-size:.85rem;color:#444;line-height:1.4;}
+
+p{
+font-size:clamp(12px,3.5vw,14px);
+line-height:1.4;
+color:#444;
+}
 
 .page-num{
-    position:absolute;
-    bottom:12px;
-    right:15px;
-    font-size:.7rem;
-    color:#aaa;
+position:absolute;
+bottom:10px;
+right:14px;
+font-size:11px;
+color:#aaa;
 }
 
 /* FINAL */
 #final-screen{
-    position:fixed;
-    inset:0;
-    background:
-        linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
-        radial-gradient(circle,#0077b6,#001d3d);
-    display:none;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:30px;
-    color:white;
-    overflow:hidden;
+position:fixed;
+inset:0;
+background:
+linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+radial-gradient(circle,#0077b6,#001d3d);
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+color:white;
+overflow:hidden;
 }
 
 #final-screen h1{
-    font-size:1.6rem;
-    margin-bottom:15px;
+font-size:clamp(20px,6vw,26px);
+margin-bottom:15px;
 }
 
 #final-screen p{
-    font-size:1rem;
-    color:#f0f0f0;
-    max-width:320px;
-    line-height:1.6;
+font-size:clamp(14px,4vw,18px);
+max-width:90%;
+line-height:1.6;
 }
 
 .btn{
-    margin-top:25px;
-    padding:12px 28px;
-    border:none;
-    border-radius:30px;
-    background:white;
-    color:#0077b6;
-    font-weight:bold;
+margin-top:25px;
+padding:12px 30px;
+border:none;
+border-radius:30px;
+background:white;
+color:#0077b6;
+font-weight:bold;
 }
 
 /* Corazones */
 .heart{
-    position:absolute;
-    bottom:-20px;
-    font-size:18px;
-    animation:float 4s linear forwards;
-    opacity:.8;
+position:absolute;
+bottom:-20px;
+font-size:18px;
+animation:float 4s linear forwards;
+opacity:.9;
 }
 
 @keyframes float{
-    0%{transform:translateY(0) scale(1);}
-    100%{transform:translateY(-110vh) scale(1.6);opacity:0;}
+0%{transform:translateY(0);}
+100%{transform:translateY(-110vh);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="book-wrapper">
 <div class="book-container" id="book">
 <div class="spine"></div>
-
-<!-- Páginas -->
 
 <div class="page" id="p8" style="--i:8">
 <div class="icon">💘</div>
 <h2>Dictamen Final</h2>
-<p>"Revisamos nómina estatal y 42 Excels… y confirmamos: este equipo está oficialmente certificado en amistad."</p>
+<p>"Revisamos nómina estatal y 52 Excels… y concluimos que este equipo está certificado en amistad."</p>
 <div class="page-back">❤️</div>
 <span class="page-num">8</span>
 </div>
@@ -179,7 +189,7 @@ p{font-size:.85rem;color:#444;line-height:1.4;}
 <div class="page" id="p7" style="--i:7">
 <div class="icon">📑</div>
 <h2>Declaración SAT</h2>
-<p>"El único ingreso libre de ISR aquí… es el cariño entre compañeros."</p>
+<p>"El único ingreso libre de ISR aquí… es el cariño del equipo."</p>
 <div class="page-back">💌</div>
 <span class="page-num">7</span>
 </div>
@@ -187,7 +197,7 @@ p{font-size:.85rem;color:#444;line-height:1.4;}
 <div class="page" id="p6" style="--i:6">
 <div class="icon">📊</div>
 <h2>Base de Datos</h2>
-<p>"Nuestro Excel sostiene al sector salud… pero la amistad es la fórmula que nunca falla."</p>
+<p>"Nuestro Excel sostiene el sector salud… pero la fórmula más fuerte es el compañerismo."</p>
 <div class="page-back">📈</div>
 <span class="page-num">6</span>
 </div>
@@ -198,30 +208,6 @@ p{font-size:.85rem;color:#444;line-height:1.4;}
 <p>"Si el SAT auditara nuestro ambiente laboral… saldría con una sonrisa."</p>
 <div class="page-back">😊</div>
 <span class="page-num">5</span>
-</div>
-
-<div class="page" id="p4" style="--i:4">
-<div class="icon">💼</div>
-<h2>Nómina Estatal</h2>
-<p>"Procesar la nómina estatal es complejo… pero juntos todo fluye mejor."</p>
-<div class="page-back">💙</div>
-<span class="page-num">4</span>
-</div>
-
-<div class="page" id="p3" style="--i:3">
-<div class="icon">☕</div>
-<h2>Incidencias</h2>
-<p>"Entre reportes y urgencias… siempre hay espacio para un café compartido."</p>
-<div class="page-back">✨</div>
-<span class="page-num">3</span>
-</div>
-
-<div class="page" id="p2" style="--i:2">
-<div class="icon">🏥</div>
-<h2>Sector Salud</h2>
-<p>"Administrar el talento humano de todo un estado es un reto… hacerlo con amistad es un privilegio."</p>
-<div class="page-back">💞</div>
-<span class="page-num">2</span>
 </div>
 
 <div class="page cover" id="p1" style="--i:1">
@@ -235,7 +221,6 @@ Auditoría Especial – Día del Amor y la Amistad
 </div>
 
 </div>
-</div>
 
 <div id="final-screen">
 <h1>¡Feliz Día del Amor y la Amistad!</h1>
@@ -247,18 +232,18 @@ pero hacerlo con ustedes lo convierte en algo extraordinario.
 </div>
 
 <script>
-let current = 1;
-const total = 8;
-let animating = false;
-const finalScreen = document.getElementById("final-screen");
+let current=1;
+const total=8;
+let animating=false;
+const finalScreen=document.getElementById("final-screen");
 
 document.querySelectorAll(".page").forEach(page=>{
-page.addEventListener("pointerup", ()=>{
+page.addEventListener("pointerup",()=>{
 
 if(animating) return;
-if(page.id !== `p${current}`) return;
+if(page.id!==`p${current}`) return;
 
-animating = true;
+animating=true;
 
 gsap.to(page,{
 duration:1,
@@ -289,7 +274,7 @@ const h=document.createElement("div");
 h.className="heart";
 h.innerHTML="💖";
 h.style.left=Math.random()*100+"vw";
-h.style.fontSize=(16+Math.random()*20)+"px";
+h.style.fontSize=(16+Math.random()*18)+"px";
 finalScreen.appendChild(h);
 setTimeout(()=>h.remove(),4000);
 },350);
