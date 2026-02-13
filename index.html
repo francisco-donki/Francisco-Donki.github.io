@@ -9,145 +9,150 @@
 <style>
 :root{
 --blue:#0077b6;
---light-blue:#caf0f8;
---bg:#e9ecef;
+--dark-blue:#03045e;
+--paper:#fdfdfd;
+--left-page:#f4f4f4;
 }
 
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
--webkit-tap-highlight-color:transparent;
+font-family:'Segoe UI', Roboto, sans-serif;
 }
 
 body{
-background:var(--bg);
+/* FONDO DINÁMICO */
+background: linear-gradient(-45deg, #e9ecef, #dee2e6, #caf0f8, #90e0ef);
+background-size: 400% 400%;
+animation: gradientBG 15s ease infinite;
 height:100vh;
 display:flex;
 justify-content:center;
 align-items:center;
 overflow:hidden;
-perspective:1500px;
+perspective:2000px;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .book{
 position:relative;
 width:90vw;
-max-width:340px;
+max-width:350px;
 aspect-ratio:3/4;
 transform-style:preserve-3d;
+box-shadow: 0 50px 100px rgba(0,0,0,0.2);
 }
 
+/* EFECTO HOJA IZQUIERDA AL VOLTEAR */
 .page{
 position:absolute;
 inset:0;
-background:white;
-border-radius:4px 12px 12px 4px;
+background:var(--paper);
+border-radius:4px 15px 15px 4px;
 transform-origin:left center;
 transform-style:preserve-3d;
-padding:20px;
+padding:25px;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-box-shadow:5px 0 15px rgba(0,0,0,.1);
-backface-visibility:hidden;
+backface-visibility:visible; /* Cambiado para ver el reverso */
 cursor:pointer;
 z-index:calc(20 - var(--i));
-border: 1px solid #ddd;
+border: 1px solid rgba(0,0,0,0.1);
+transition: box-shadow 0.3s;
 }
 
-/* CONTENEDOR DE FOTO MEJORADO */
-.photo-slot {
-width: 100%;
-height: 140px;
-background: var(--light-blue);
-margin-bottom: 15px;
-border-radius: 8px;
-overflow: hidden;
+/* El reverso de la página (lo que queda a la izquierda) */
+.page-back {
+position: absolute;
+inset: 0;
+background: linear-gradient(to left, var(--left-page), #ffffff);
+transform: rotateY(-180deg);
+backface-visibility: hidden;
 display: flex;
 justify-content: center;
 align-items: center;
-border: 1px solid #0077b633;
-position: relative;
+border-radius: 15px 4px 4px 15px;
+box-shadow: inset -10px 0 20px rgba(0,0,0,0.05);
 }
 
-.photo-slot img {
+.photo-slot {
 width: 100%;
-height: 100%;
-object-fit: cover;
-display: block;
+height: 150px;
+background: #eee;
+margin-bottom: 15px;
+border-radius: 10px;
+overflow: hidden;
+border: 1px solid var(--blue);
 }
 
-/* Icono de fondo por si la imagen falla */
-.photo-slot::before {
-content: "📸";
-font-size: 30px;
-position: absolute;
-z-index: 0;
-}
-
-.photo-slot img {
-position: relative;
-z-index: 1;
-}
+.photo-slot img { width: 100%; height: 100%; object-fit: cover; }
 
 .cover{
-background: linear-gradient(135deg, #023e8a, #0077b6);
+background: linear-gradient(135deg, #023e8a 0%, #0077b6 100%);
 color:white;
-border: none;
 }
 
-.icon{ font-size: 40px; margin-bottom: 10px; }
-h1{ font-size: 20px; margin-bottom: 5px; }
-h2{ font-size: 16px; color: var(--blue); margin-bottom: 8px; text-transform: uppercase; font-weight: bold;}
+h2{ font-size: 18px; color: var(--blue); margin-bottom: 10px; font-weight: 800; }
 .cover h2 { color: #ade8f4; }
-p{ font-size: 13.5px; color: #444; line-height: 1.4; padding: 0 5px; }
+p{ font-size: 14px; color: #333; line-height: 1.5; }
 
-.page-num{
-position:absolute;
-bottom:10px;
-right:15px;
-font-size:10px;
-color:#bbb;
-}
-
+/* FINAL MEJORADO */
 #final{
 position:fixed;
 inset:0;
-background: radial-gradient(circle, #0077b6, #001d3d);
+background: rgba(0, 119, 182, 0.85);
+backdrop-filter: blur(10px);
 display:none;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-padding:30px;
-color:white;
+padding:40px;
 z-index: 100;
 }
 
+.final-card {
+background: white;
+padding: 30px;
+border-radius: 20px;
+box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+max-width: 400px;
+transform: scale(0.9);
+animation: popIn 0.8s cubic-bezier(0.17, 0.89, 0.32, 1.49) forwards;
+}
+
+@keyframes popIn { to { transform: scale(1); } }
+
+.final-card h1 { color: var(--blue); font-size: 24px; margin-bottom: 15px; }
+.final-card p { color: #444; font-size: 16px; margin-bottom: 10px; }
+
 .btn{
 margin-top: 20px;
-padding:12px 25px;
+padding:12px 30px;
 border:none;
-border-radius:25px;
-background:white;
-color:var(--blue);
+border-radius:50px;
+background: var(--blue);
+color:white;
 font-weight:bold;
 cursor:pointer;
+transition: transform 0.2s;
 }
+.btn:hover { transform: scale(1.05); }
 
-.heart{
-position:absolute;
-bottom:-20px;
-animation:float 4s linear forwards;
-}
+.heart{ position:absolute; bottom:-20px; animation:float 4s linear forwards; z-index: 110; }
 
 @keyframes float{
-0%{transform:translateY(0) rotate(0deg);}
-100%{transform:translateY(-110vh) rotate(360deg);opacity:0;}
+0%{transform:translateY(0) rotate(0deg); opacity: 1;}
+100%{transform:translateY(-110vh) rotate(360deg); opacity:0;}
 }
 </style>
 </head>
@@ -156,81 +161,71 @@ animation:float 4s linear forwards;
 
 <div class="book" id="book">
     <div class="page cover" id="p1" style="--i:1">
-        <div class="icon">📁</div>
+        <div style="font-size: 50px;">📂</div>
         <h1>AUDITORÍA DE AFECTO</h1>
         <h2>Expediente 14-F</h2>
-        <p style="color:white; opacity:0.9">Recursos Humanos Salud<br>Validación de Lazos 2026</p>
-        <span class="page-num">1</span>
+        <p style="color:white;">Recursos Humanos Salud<br>Validación de Lazos 2026</p>
+        <div class="page-back">📖</div>
     </div>
 
     <div class="page" id="p2" style="--i:2">
-        <div class="photo-slot">
-            <img src="https://picsum.photos/id/447/400/300" alt="Salud">
-        </div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/447/400/300"></div>
         <h2>Sector Salud</h2>
         <p>Gestionar a quienes cuidan de otros es una labor de amor que no aparece en los manuales.</p>
-        <span class="page-num">2</span>
+        <div class="page-back">🏥</div>
     </div>
 
     <div class="page" id="p3" style="--i:3">
-        <div class="photo-slot">
-            <img src="https://picsum.photos/id/20/400/300" alt="Nomina">
-        </div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/20/400/300"></div>
         <h2>Nómina Estatal</h2>
-        <p>Entre miles de renglones y conceptos, el valor más alto siempre es su dedicación.</p>
-        <span class="page-num">3</span>
+        <p>Entre miles de renglones y conceptos, el valor más alto siempre es su dedicación diaria.</p>
+        <div class="page-back">💵</div>
     </div>
 
     <div class="page" id="p4" style="--i:4">
-        <div class="photo-slot">
-            <img src="https://picsum.photos/id/357/400/300" alt="Incidencias">
-        </div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/357/400/300"></div>
         <h2>Asistencia</h2>
-        <p>No hay retardo que afecte este equipo; nuestra puntualidad es con el corazón.</p>
-        <span class="page-num">4</span>
+        <p>No hay retardo que afecte este equipo; nuestra puntualidad es con el corazón y el apoyo mutuo.</p>
+        <div class="page-back">⏰</div>
     </div>
 
     <div class="page" id="p5" style="--i:5">
-        <div class="photo-slot">
-            <img src="https://picsum.photos/id/180/400/300" alt="Datos">
-        </div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/180/400/300"></div>
         <h2>Base de Datos</h2>
-        <p>En el gran Excel de la vida, su amistad es la única celda que siempre está protegida.</p>
-        <span class="page-num">5</span>
+        <p>En el gran Excel de la vida, su amistad es la única celda que siempre está protegida contra errores.</p>
+        <div class="page-back">📊</div>
     </div>
 
     <div class="page" id="p6" style="--i:6">
-        <div class="photo-slot">
-            <img src="https://picsum.photos/id/486/400/300" alt="Prestaciones">
-        </div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/486/400/300"></div>
         <h2>Prestaciones</h2>
-        <p>Nuestra mayor seguridad social es saber que contamos los unos con los otros cada día.</p>
-        <span class="page-num">6</span>
+        <p>Nuestra mayor seguridad social es saber que contamos los unos con los otros incondicionalmente.</p>
+        <div class="page-back">🛡️</div>
     </div>
 
     <div class="page" id="p7" style="--i:7">
-        <div class="photo-slot">
-            <img src="https://picsum.photos/id/537/400/300" alt="Auditoria">
-        </div>
+        <div class="photo-slot"><img src="https://picsum.photos/id/537/400/300"></div>
         <h2>Auditoría SAT</h2>
-        <p>Si el SAT fiscalizara el compañerismo, seríamos el equipo con mayor saldo a favor.</p>
-        <span class="page-num">7</span>
+        <p>Si fiscalizaran el compañerismo, seríamos el equipo con mayor saldo a favor del estado.</p>
+        <div class="page-back">🧾</div>
     </div>
 
     <div class="page" id="p8" style="--i:8">
-        <div class="icon">📜</div>
+        <div style="font-size: 50px;">📜</div>
         <h2>Dictamen Final</h2>
         <p>Tras analizar cada detalle, el resultado es positivo: ¡Son un equipo extraordinario!</p>
-        <p style="font-weight:bold; margin-top:15px; color:var(--blue)">Haz clic para cerrar el expediente.</p>
-        <span class="page-num">8</span>
+        <p style="font-weight:bold; margin-top:20px; color:var(--blue)">Haz clic para cerrar el expediente y recibir el dictamen.</p>
+        <div class="page-back">💙</div>
     </div>
 </div>
 
 <div id="final">
-    <h1>¡Feliz Día de la Amistad!</h1>
-    <p>Administrar el talento humano de todo un estado es un reto inmenso, pero hacerlo a su lado es un honor invaluable.</p>
-    <p style="font-style: italic; font-size: 16px; opacity: 0.9;">"El verdadero recurso humano es el afecto que nos une."</p>
-    <button class="btn" onclick="location.reload()">Reabrir Expediente</button>
+    <div class="final-card">
+        <h1>¡Feliz Día de la Amistad!</h1>
+        <p>Administrar el talento humano de todo un estado es un reto inmenso, pero hacerlo a su lado lo convierte en algo extraordinario.</p>
+        <p style="font-style: italic; font-size: 14px; margin-top: 15px; border-top: 1px solid #eee; pt-10">"El verdadero recurso humano es el afecto que nos une."</p>
+        <button class="btn" onclick="location.reload()">Reabrir Expediente</button>
+    </div>
 </div>
 
 <script>
@@ -243,13 +238,17 @@ document.querySelectorAll(".page").forEach(page=>{
         if(animating || page.id !== `p${current}`) return;
 
         animating = true;
-        gsap.to(page,{
-            duration:1.2,
-            rotationY:-180,
-            ease:"power2.inOut",
-            onComplete:()=>{
-                page.style.pointerEvents="none";
-                animating=false;
+        
+        // Elevamos un poco la página al voltearla para efecto 3D
+        gsap.to(page, {
+            duration: 1.2,
+            rotationY: -180,
+            x: -10, // Desplazamiento ligero a la izquierda para el lomo
+            ease: "power2.inOut",
+            onComplete: () => {
+                // Mantenemos la página ahí pero bajamos su z-index para que la siguiente quede arriba
+                page.style.zIndex = current; 
+                animating = false;
             }
         });
 
@@ -257,9 +256,11 @@ document.querySelectorAll(".page").forEach(page=>{
 
         if(current > total){
             setTimeout(()=>{
-                document.getElementById("book").style.display="none";
-                document.getElementById("final").style.display="flex";
-                createHearts();
+                gsap.to("#book", {opacity: 0, duration: 0.5, onComplete: () => {
+                    document.getElementById("book").style.display="none";
+                    document.getElementById("final").style.display="flex";
+                    createHearts();
+                }});
             }, 1000);
         }
     });
@@ -269,12 +270,12 @@ function createHearts(){
     setInterval(()=>{
         const h=document.createElement("div");
         h.className="heart";
-        h.innerHTML=["💖","❤️","💙","🏥"][Math.floor(Math.random()*4)];
+        h.innerHTML=["💖","❤️","💙","✨","💉"][Math.floor(Math.random()*5)];
         h.style.left=Math.random()*100+"vw";
-        h.style.fontSize=(16+Math.random()*24)+"px";
-        document.getElementById("final").appendChild(h);
+        h.style.fontSize=(20+Math.random()*30)+"px";
+        document.body.appendChild(h);
         setTimeout(()=>h.remove(),4000);
-    }, 300);
+    }, 250);
 }
 </script>
 
