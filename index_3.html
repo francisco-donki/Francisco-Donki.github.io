@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expediente RRHH Salud - 14 Feb</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<style>
+:root{
+--blue:#0077b6;
+--dark-blue:#03045e;
+--paper:#fdfdfd;
+--left-page:#f4f4f4;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
+
+body{
+background: linear-gradient(-45deg, #d1d8e0, #a5d8ff, #74c0fc, #ced4da);
+background-size: 400% 400%;
+animation: gradientBG 15s ease infinite;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+perspective:2000px;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.book{
+position:relative;
+width:90vw;
+max-width:350px;
+aspect-ratio:3/4;
+transform-style:preserve-3d;
+box-shadow: 0 50px 100px rgba(0,0,0,0.3);
+}
+
+.page{
+position:absolute;
+inset:0;
+background:var(--paper);
+border-radius:4px 15px 15px 4px;
+transform-origin:left center;
+transform-style:preserve-3d;
+padding:25px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+backface-visibility:visible;
+cursor:pointer;
+z-index:calc(20 - var(--i));
+border: 1px solid rgba(0,0,0,0.1);
+}
+
+.page-back {
+position: absolute;
+inset: 0;
+background: linear-gradient(to left, #e9ecef, #ffffff);
+transform: rotateY(-180deg);
+backface-visibility: hidden;
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 15px 4px 4px 15px;
+box-shadow: inset -10px 0 20px rgba(0,0,0,0.1);
+}
+
+.photo-slot {
+width: 100%;
+height: 140px;
+background: #f8f9fa;
+margin-bottom: 15px;
+border-radius: 10px;
+overflow: hidden;
+border: 2px dashed var(--blue);
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.photo-slot img { width: 100%; height: 100%; object-fit: cover; }
+
+h2{ font-size: 17px; color: var(--blue); margin-bottom: 8px; font-weight: 800; text-transform: uppercase; }
+.cover h2 { color: #ade8f4; }
+p{ font-size: 14px; color: #444; line-height: 1.4; font-weight: 500; }
+
+#final{
+position:fixed;
+inset:0;
+background: rgba(3, 4, 94, 0.9);
+backdrop-filter: blur(15px);
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:40px;
+z-index: 100;
+}
+
+.final-card {
+background: white;
+padding: 30px;
+border-radius: 20px;
+box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+max-width: 380px;
+}
+
+.final-card h1 { color: var(--blue); font-size: 26px; margin-bottom: 10px; }
+.btn{
+margin-top: 20px;
+padding:12px 30px;
+border:none;
+border-radius:50px;
+background: var(--blue);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+.heart{ position:absolute; bottom:-20px; animation:float 4s linear forwards; z-index: 110; }
+@keyframes float{ 0%{transform:translateY(0) rotate(0deg); opacity:1;} 100%{transform:translateY(-110vh) rotate(360deg); opacity:0;} }
+</style>
+</head>
+
+<body>
+
+<div class="book" id="book">
+    <div class="page cover" id="p1" style="--i:1">
+        <div style="font-size: 50px;">📑</div>
+        <h1>AUDITORÍA DE AFECTO</h1>
+        <h2>Expediente 14-F</h2>
+        <p style="color:white;">RECURSOS HUMANOS SALUD<br>Clasificación: Confidencial / Muy Queridos</p>
+        <div class="page-back">📤</div>
+    </div>
+
+    <div class="page" id="p2" style="--i:2">
+        <div class="photo-slot"><img src="https://picsum.photos/id/447/400/300"></div>
+        <h2>Manejo de Personal</h2>
+        <p>Gestionar a miles de empleados es como cuidar un hospital en plena crisis... pero sin café y con muchos "es que mi jefe no me avisó".</p>
+        <div class="page-back">👩‍⚕️</div>
+    </div>
+
+    <div class="page" id="p3" style="--i:3">
+        <div class="photo-slot"><img src="https://picsum.photos/id/160/400/300"></div>
+        <h2>La Nómina</h2>
+        <p>Si la nómina sale bien, nadie dice nada. Si sale un peso mal, ¡hasta los fantasmas del hospital nos reclaman! Gracias por aguantar el estrés.</p>
+        <div class="page-back">💸</div>
+    </div>
+
+    <div class="page" id="p4" style="--i:4">
+        <div class="photo-slot"><img src="https://picsum.photos/id/357/400/300"></div>
+        <h2>Incidencias</h2>
+        <p>¿Falta justificada? ¿Retardo por tráfico? Aquí la única incidencia que no perdonamos es que no nos hayamos tomado una coca juntos.</p>
+        <div class="page-back">⏳</div>
+    </div>
+
+    <div class="page" id="p5" style="--i:5">
+        <div class="photo-slot"><img src="https://picsum.photos/id/1/400/300"></div>
+        <h2>Base de Datos</h2>
+        <p>Nuestra relación es como el Excel: a veces se traba, a veces no carga, pero sin ustedes mi vida sería un #¡VALOR!</p>
+        <div class="page-back">💻</div>
+    </div>
+
+    <div class="page" id="p6" style="--i:6">
+        <div class="photo-slot"><img src="https://picsum.photos/id/537/400/300"></div>
+        <h2>Auditoría SAT</h2>
+        <p>Si el SAT nos pide cuentas de nuestro cariño, tendríamos que declarar impuestos por exceso de buen equipo. ¡Estamos en saldo a favor!</p>
+        <div class="page-back">📈</div>
+    </div>
+
+    <div class="page" id="p7" style="--i:7">
+        <div class="photo-slot"><img src="https://picsum.photos/id/2/400/300"></div>
+        <h2>Macros y Fórmulas</h2>
+        <p>Ni el BUSCARV más avanzado del mundo podría encontrar a un equipo tan fregón como este. ¡Son mi base de datos favorita!</p>
+        <div class="page-back">📁</div>
+    </div>
+
+    <div class="page" id="p8" style="--i:8">
+        <div style="font-size: 50px;">📜</div>
+        <h2>Dictamen Final</h2>
+        <p>Auditoría concluida: No hay errores en el sistema, solo un equipo que vale oro. Haz clic para cerrar el archivo y ver el resultado.</p>
+        <div class="page-back">💙</div>
+    </div>
+</div>
+
+<div id="final">
+    <div class="final-card">
+        <h1>¡Feliz 14 de Febrero!</h1>
+        <p>Porque sobrevivir a una quincena, a un cambio de leyes fiscales y a los Excels que no guardan, solo es posible gracias a su amistad.</p>
+        <p style="font-style: italic; font-size: 14px; margin-top: 15px; border-top: 1px solid #eee; padding-top:10px;">
+            "Eres el 'Guardar' de mi archivo de la vida."
+        </p>
+        <button class="btn" onclick="location.reload()">Reabrir Expediente</button>
+    </div>
+</div>
+
+<script>
+let current = 1;
+const total = 8;
+let animating = false;
+
+document.querySelectorAll(".page").forEach(page=>{
+    page.addEventListener("click",()=>{
+        if(animating || page.id !== `p${current}`) return;
+        animating = true;
+        
+        gsap.to(page, {
+            duration: 1.2,
+            rotationY: -180,
+            x: -15, 
+            ease: "power2.inOut",
+            onComplete: () => {
+                page.style.zIndex = current; 
+                animating = false;
+            }
+        });
+
+        current++;
+
+        if(current > total){
+            setTimeout(()=>{
+                gsap.to("#book", {opacity: 0, duration: 0.5, onComplete: () => {
+                    document.getElementById("book").style.display="none";
+                    document.getElementById("final").style.display="flex";
+                    createHearts();
+                }});
+            }, 1000);
+        }
+    });
+});
+
+function createHearts(){
+    setInterval(()=>{
+        const h=document.createElement("div");
+        h.className="heart";
+        // Añadí emojis de oficina y salud
+        h.innerHTML=["💖","❤️","💻","🏥","📄","✨"][Math.floor(Math.random()*6)];
+        h.style.left=Math.random()*100+"vw";
+        h.style.fontSize=(20+Math.random()*30)+"px";
+        document.body.appendChild(h);
+        setTimeout(()=>h.remove(),4000);
+    }, 250);
+}
+</script>
+
+</body>
+</html>
