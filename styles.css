@@ -451,14 +451,18 @@ transform:translateY(0px);
 
 #photoFrame{
 
-width:320px;
-height:320px;
+width:350px;
+height:350px;
 
 margin:auto;
 
 border-radius:50%;
 
 border:8px solid white;
+align-items: center;               /* Centra la imagen verticalmente */
+  justify-content: center;           /* Centra la imagen horizontalmente */
+  overflow: hidden;
+ display: flex;
 
 background:
 
@@ -481,9 +485,13 @@ justify-content:center;
 width:100%;
 height:100%;
 
-border-radius:50%;
+border-radius:60%;
 
-background:white;
+background-image: url("1.jpeg");
+background-repeat: no-repeat;
+background-size: contain; /* Hace que la imagen cubra todo el contenedor */
+background-position: center center; /* Centra la imagen */
+object-fit: contain;
 
 display:flex;
 flex-direction:column;
