@@ -76,6 +76,15 @@ border:10px solid white;
 margin:auto;
 display:flex;align-items:center;justify-content:center;
 background:rgba(255,255,255,.15)
+align-items: center;               /* Centra la imagen verticalmente */
+  justify-content: center;           /* Centra la imagen horizontalmente */
+  overflow: hidden;
+ display: flex;
+ background-image: url("1.jpeg");
+background-repeat: no-repeat;
+background-size: contain; /* Hace que la imagen cubra todo el contenedor */
+background-position: center center; /* Centra la imagen */
+object-fit: contain;
 }
 .reveal{font-size:4rem;color:#ff93d9;text-shadow:0 0 30px #ff93d9}
 .countdown{font-size:2rem;margin-top:20px;color:#ffeaa5}
@@ -111,14 +120,14 @@ background:rgba(255,255,255,.15)
 
 <section class="scene"><div class="panel reveal-item">
 <div class="character">🐻</div>
-<h1>Baby Shower de Daniela Flores Romero</h1>
+<h1>Baby Shower de Daniela</h1>
 <p>Una nueva aventura está por comenzar.</p>
 </div></section>
 
 <section class="scene"><div class="panel reveal-item">
 <div class="character">🐷</div>
 <h2>Fecha y Hora</h2>
-<p>15/06/2026 - 15:45</p>
+<p>28/06/2026 - 15:30</p>
 <div class="countdown" id="countdown"></div>
 </div></section>
 
@@ -132,7 +141,7 @@ background:rgba(255,255,255,.15)
 <section class="scene"><div class="panel reveal-item">
 <div class="character">🦘</div>
 <h2>Daniela</h2>
-<div class="photo">Aquí colocarás la fotografía</div>
+<div class="photo"></div>
 </div></section>
 
 <section class="scene"><div class="panel reveal-item">
