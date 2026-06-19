@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bosque Encantado - Baby Shower Daniela</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Cinzel:wght@500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Quicksand,sans-serif;background:#07110b;color:#fff;overflow-x:hidden}
+h1,h2{font-family:Cinzel,serif}
+
+.forest{
+position:fixed;inset:0;z-index:-50;overflow:hidden;
+background:linear-gradient(#244f3d,#0c1a13);
+}
+.skyGlow,.fog1,.fog2,.lightRays,.treesFar,.treesMid,.treesFront{
+position:absolute;inset:0;
+}
+.skyGlow{
+background:
+radial-gradient(circle at 50% 20%,rgba(255,240,180,.25),transparent 40%),
+radial-gradient(circle at 20% 40%,rgba(120,255,180,.08),transparent 30%);
+}
+.lightRays{
+background:
+repeating-linear-gradient(110deg,
+rgba(255,255,255,.05) 0 40px,
+transparent 40px 120px);
+}
+.fog1,.fog2{
+background:radial-gradient(circle,rgba(255,255,255,.08),transparent 60%);
+filter:blur(30px);
+}
+.treesFar{
+background:repeating-linear-gradient(90deg,#163323 0 50px,#214733 50px 100px);
+opacity:.15;
+}
+.treesMid{
+background:repeating-linear-gradient(90deg,#214733 0 80px,#2f6146 80px 160px);
+opacity:.22;
+}
+.treesFront{
+background:repeating-linear-gradient(90deg,#346c4e 0 120px,#417e5d 120px 240px);
+opacity:.28;
+}
+.path{
+position:fixed;left:50%;transform:translateX(-50%);
+width:250px;height:100vh;
+background:linear-gradient(#6f5531,#9c7d4e,#6f5531);
+opacity:.28;z-index:-10;
+}
+.scene{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:40px;
+}
+.panel{
+width:min(1000px,95%);
+background:rgba(255,255,255,.08);
+backdrop-filter:blur(14px);
+border-radius:30px;
+padding:40px;
+text-align:center;
+border:1px solid rgba(255,255,255,.15);
+box-shadow:0 15px 40px rgba(0,0,0,.4);
+}
+.character{font-size:6rem}
+.photo{
+width:320px;height:320px;border-radius:50%;
+border:10px solid white;
+margin:auto;
+display:flex;align-items:center;justify-content:center;
+background:rgba(255,255,255,.15)
+}
+.reveal{font-size:4rem;color:#ff93d9;text-shadow:0 0 30px #ff93d9}
+.countdown{font-size:2rem;margin-top:20px;color:#ffeaa5}
+.firefly,.leaf,.butterfly{position:fixed;pointer-events:none}
+.firefly{width:5px;height:5px;border-radius:50%;background:#fff7a3;box-shadow:0 0 20px #fff7a3}
+.leaf{font-size:22px}
+.butterfly{font-size:22px}
+@media(max-width:768px){
+.photo{width:220px;height:220px}
+.reveal{font-size:2.5rem}
+.character{font-size:4rem}
+}
+</style>
+</head>
+<body>
+
+<div class="forest">
+<div class="skyGlow"></div>
+<div class="lightRays"></div>
+<div class="fog1"></div>
+<div class="fog2"></div>
+<div class="treesFar"></div>
+<div class="treesMid"></div>
+<div class="treesFront"></div>
+</div>
+
+<div class="path"></div>
+
+<section class="scene"><div class="panel reveal-item">
+<h1>🌳 Bienvenido al Bosque Encantado 🌳</h1>
+<p>Desciende por el sendero mágico para descubrir cada sorpresa.</p>
+</div></section>
+
+<section class="scene"><div class="panel reveal-item">
+<div class="character">🐻</div>
+<h1>Baby Shower de Daniela Flores Romero</h1>
+<p>Una nueva aventura está por comenzar.</p>
+</div></section>
+
+<section class="scene"><div class="panel reveal-item">
+<div class="character">🐷</div>
+<h2>Fecha y Hora</h2>
+<p>15/06/2026 - 15:45</p>
+<div class="countdown" id="countdown"></div>
+</div></section>
+
+<section class="scene"><div class="panel reveal-item">
+<div class="character">🐯</div>
+<h2>Ubicación</h2>
+<p>13 de Mayo #205</p>
+<p>Col. Miguel de la Madrid</p>
+</div></section>
+
+<section class="scene"><div class="panel reveal-item">
+<div class="character">🦘</div>
+<h2>Daniela</h2>
+<div class="photo">Aquí colocarás la fotografía</div>
+</div></section>
+
+<section class="scene"><div class="panel reveal-item">
+<div class="character">🦉</div>
+<h2>El bosque guarda un secreto...</h2>
+</div></section>
+
+<section class="scene"><div class="panel reveal-item">
+<h1>✨ Revelación ✨</h1>
+<div class="reveal">💖 ¡ES NIÑA! 💖</div>
+</div></section>
+
+<section class="scene"><div class="panel reveal-item">
+<h1>🎀 Te esperamos 🎀</h1>
+<p>Gracias por acompañarnos en este momento especial.</p>
+</div></section>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.to(".treesFar",{yPercent:-10,scrollTrigger:{scrub:true}});
+gsap.to(".treesMid",{yPercent:-20,scrollTrigger:{scrub:true}});
+gsap.to(".treesFront",{yPercent:-40,scrollTrigger:{scrub:true}});
+gsap.to(".fog1",{xPercent:20,duration:20,repeat:-1,yoyo:true});
+gsap.to(".fog2",{xPercent:-20,duration:25,repeat:-1,yoyo:true});
+
+document.querySelectorAll(".reveal-item").forEach(el=>{
+gsap.from(el,{opacity:0,y:120,scale:.85,duration:1.5,
+scrollTrigger:{trigger:el,start:"top 80%"}});
+});
+
+for(let i=0;i<80;i++){
+let f=document.createElement('div');
+f.className='firefly';
+f.style.left=Math.random()*100+'vw';
+f.style.top=Math.random()*100+'vh';
+document.body.appendChild(f);
+gsap.to(f,{x:'random(-250,250)',y:'random(-150,150)',duration:6+Math.random()*10,repeat:-1,yoyo:true});
+}
+
+for(let i=0;i<30;i++){
+let l=document.createElement('div');
+l.className='leaf';
+l.innerHTML='🍃';
+l.style.left=Math.random()*100+'vw';
+l.style.top='-50px';
+document.body.appendChild(l);
+gsap.to(l,{y:window.innerHeight+200,x:'random(-100,100)',rotation:360,duration:10+Math.random()*15,repeat:-1,delay:Math.random()*10});
+}
+
+for(let i=0;i<15;i++){
+let b=document.createElement('div');
+b.className='butterfly';
+b.innerHTML='🦋';
+b.style.left=Math.random()*100+'vw';
+b.style.top=Math.random()*100+'vh';
+document.body.appendChild(b);
+gsap.to(b,{x:'random(-500,500)',y:'random(-250,250)',rotation:360,duration:20+Math.random()*20,repeat:-1,yoyo:true});
+}
+
+const target=new Date("2026-06-15T15:45:00");
+function tick(){
+let d=target-new Date();
+if(d<0)return;
+let days=Math.floor(d/86400000);
+let hrs=Math.floor(d%86400000/3600000);
+let min=Math.floor(d%3600000/60000);
+let sec=Math.floor(d%60000/1000);
+document.getElementById('countdown').innerHTML=`${days} días ${hrs} horas ${min} min ${sec} seg`;
+}
+setInterval(tick,1000);tick();
+</script>
+</body>
+</html>

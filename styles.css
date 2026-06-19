@@ -1,0 +1,669 @@
+/* ========================================= */
+/* RESET */
+/* ========================================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'Quicksand',sans-serif;
+overflow-x:hidden;
+background:#0f1b16;
+color:white;
+}
+
+/* ========================================= */
+/* VARIABLES */
+/* ========================================= */
+
+:root{
+
+--pink:#ffb7e8;
+--pink-dark:#ff8fd5;
+
+--lavender:#cbb7ff;
+--lavender-dark:#a48cff;
+
+--forest-dark:#12291f;
+--forest-mid:#214132;
+--forest-light:#376652;
+
+--glass:rgba(255,255,255,.12);
+
+}
+
+/* ========================================= */
+/* LIBRO */
+/* ========================================= */
+
+#introBook{
+
+position:fixed;
+inset:0;
+
+z-index:9999;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:
+linear-gradient(
+180deg,
+#ffd6f5,
+#cbb7ff
+);
+
+overflow:hidden;
+
+}
+
+.book{
+
+position:relative;
+
+width:min(700px,90vw);
+height:450px;
+
+perspective:2000px;
+
+}
+
+.bookShadow{
+
+position:absolute;
+
+width:100%;
+height:100%;
+
+border-radius:20px;
+
+background:black;
+
+filter:blur(60px);
+
+opacity:.25;
+
+transform:
+translateY(50px);
+
+}
+
+.bookCover{
+
+position:absolute;
+
+width:100%;
+height:100%;
+
+background:
+
+linear-gradient(
+135deg,
+#fffaf2,
+#f3e8ff
+);
+
+border-radius:20px;
+
+transform-origin:left center;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+box-shadow:
+0 30px 80px rgba(0,0,0,.3);
+
+}
+
+.bookContent{
+
+text-align:center;
+padding:40px;
+
+}
+
+.bookIcon{
+
+font-size:80px;
+display:block;
+margin-bottom:20px;
+
+}
+
+.bookContent h1{
+
+font-family:'Cinzel',serif;
+
+font-size:3rem;
+
+color:#7b4fb8;
+
+}
+
+.bookContent h2{
+
+font-size:2rem;
+margin-top:10px;
+
+color:#9f78d4;
+
+}
+
+.bookContent p{
+
+margin-top:25px;
+
+font-size:1.2rem;
+
+color:#666;
+
+}
+
+/* ========================================= */
+/* BOSQUE */
+/* ========================================= */
+
+#forestContainer{
+
+position:fixed;
+inset:0;
+
+z-index:-10;
+
+overflow:hidden;
+
+background:
+linear-gradient(
+180deg,
+#cbb7ff 0%,
+#ffd6f5 35%,
+#376652 100%
+);
+
+}
+
+#forestBack,
+#forestMiddle,
+#forestFront{
+
+position:absolute;
+inset:0;
+
+}
+
+/* capa lejana */
+
+#forestBack{
+
+background:
+radial-gradient(circle at 50% 20%,
+rgba(255,255,255,.2),
+transparent 40%);
+
+opacity:.6;
+
+}
+
+/* capa media */
+
+#forestMiddle{
+
+background:
+
+repeating-linear-gradient(
+90deg,
+transparent 0,
+transparent 120px,
+rgba(20,50,35,.25) 120px,
+rgba(20,50,35,.25) 160px
+);
+
+opacity:.5;
+
+}
+
+/* capa cercana */
+
+#forestFront{
+
+background:
+
+repeating-linear-gradient(
+90deg,
+transparent 0,
+transparent 200px,
+rgba(10,30,20,.45) 200px,
+rgba(10,30,20,.45) 260px
+);
+
+opacity:.8;
+
+}
+
+/* ========================================= */
+/* NIEBLA */
+/* ========================================= */
+
+#fogLayer{
+
+position:absolute;
+inset:0;
+
+pointer-events:none;
+
+background:
+
+radial-gradient(
+circle at 30% 50%,
+rgba(255,255,255,.15),
+transparent 40%
+),
+
+radial-gradient(
+circle at 80% 60%,
+rgba(255,255,255,.1),
+transparent 35%
+);
+
+filter:blur(30px);
+
+opacity:.7;
+
+}
+
+/* ========================================= */
+/* RAYOS */
+/* ========================================= */
+
+#lightLayer{
+
+position:absolute;
+inset:0;
+
+pointer-events:none;
+
+background:
+
+repeating-linear-gradient(
+
+115deg,
+
+rgba(255,255,255,.05) 0,
+
+rgba(255,255,255,.05) 40px,
+
+transparent 40px,
+
+transparent 180px
+
+);
+
+mix-blend-mode:screen;
+
+}
+
+/* ========================================= */
+/* ESCENAS */
+/* ========================================= */
+
+.scene{
+
+min-height:100vh;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+padding:80px 20px;
+
+position:relative;
+
+}
+
+.sceneContent{
+
+text-align:center;
+max-width:800px;
+
+}
+
+/* ========================================= */
+/* HERO */
+/* ========================================= */
+
+.heroTitle{
+
+font-size:
+clamp(2.5rem,6vw,5rem);
+
+font-family:'Cinzel',serif;
+
+text-shadow:
+0 0 20px rgba(255,255,255,.3);
+
+}
+
+.heroText{
+
+margin-top:25px;
+
+font-size:1.4rem;
+
+line-height:1.7;
+
+}
+
+/* ========================================= */
+/* TARJETAS */
+/* ========================================= */
+
+.card{
+
+width:min(900px,90vw);
+
+background:var(--glass);
+
+backdrop-filter:blur(20px);
+
+padding:40px;
+
+border-radius:30px;
+
+border:
+
+1px solid rgba(255,255,255,.2);
+
+box-shadow:
+
+0 20px 60px rgba(0,0,0,.25);
+
+text-align:center;
+
+}
+
+.card h1,
+.card h2,
+.card h3{
+
+margin-bottom:15px;
+
+}
+
+.card p{
+
+line-height:1.8;
+
+}
+
+/* ========================================= */
+/* PERSONAJES */
+/* ========================================= */
+
+.character{
+
+width:260px;
+height:260px;
+
+margin-bottom:30px;
+
+animation:
+floatCharacter 5s ease-in-out infinite;
+
+}
+
+.character object{
+
+width:100%;
+height:100%;
+
+}
+
+@keyframes floatCharacter{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-20px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+/* ========================================= */
+/* FOTO */
+/* ========================================= */
+
+#photoFrame{
+
+width:320px;
+height:320px;
+
+margin:auto;
+
+border-radius:50%;
+
+border:8px solid white;
+
+background:
+
+linear-gradient(
+135deg,
+var(--pink),
+var(--lavender)
+);
+
+padding:10px;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+}
+
+.photoPlaceholder{
+
+width:100%;
+height:100%;
+
+border-radius:50%;
+
+background:white;
+
+display:flex;
+flex-direction:column;
+
+align-items:center;
+justify-content:center;
+
+color:#666;
+
+font-size:1.2rem;
+
+}
+
+/* ========================================= */
+/* REVELACIÓN */
+/* ========================================= */
+
+.revealScene{
+
+text-align:center;
+
+}
+
+#magicTree{
+
+width:min(700px,90vw);
+
+margin-bottom:40px;
+
+}
+
+#magicTree object{
+
+width:100%;
+
+}
+
+#revealBox{
+
+padding:40px;
+
+background:
+
+rgba(255,255,255,.15);
+
+border-radius:30px;
+
+backdrop-filter:blur(15px);
+
+}
+
+#revealBox h1{
+
+font-size:5rem;
+
+}
+
+#revealBox h2{
+
+font-size:3rem;
+
+color:var(--pink);
+
+}
+
+#revealBox h3{
+
+font-size:2rem;
+
+color:var(--lavender);
+
+}
+
+/* ========================================= */
+/* COUNTDOWN */
+/* ========================================= */
+
+#countdown{
+
+margin-top:20px;
+
+font-size:2rem;
+
+font-weight:bold;
+
+color:#fff6b3;
+
+}
+
+/* ========================================= */
+/* BOTÓN */
+/* ========================================= */
+
+#whatsappBtn{
+
+display:inline-block;
+
+margin-top:30px;
+
+padding:18px 35px;
+
+background:#25D366;
+
+color:white;
+
+text-decoration:none;
+
+font-weight:bold;
+
+border-radius:50px;
+
+transition:.3s;
+
+}
+
+#whatsappBtn:hover{
+
+transform:translateY(-4px);
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.25);
+
+}
+
+/* ========================================= */
+/* EFECTOS */
+/* ========================================= */
+
+#fireflies,
+#butterflies,
+#petals,
+#magicDust{
+
+position:fixed;
+inset:0;
+
+pointer-events:none;
+
+overflow:hidden;
+
+}
+
+/* ========================================= */
+/* RESPONSIVE */
+/* ========================================= */
+
+@media(max-width:768px){
+
+.book{
+height:320px;
+}
+
+.bookContent h1{
+font-size:2rem;
+}
+
+.bookContent h2{
+font-size:1.3rem;
+}
+
+.character{
+width:180px;
+height:180px;
+}
+
+#photoFrame{
+width:240px;
+height:240px;
+}
+
+#revealBox h2{
+font-size:2rem;
+}
+
+.heroText{
+font-size:1.1rem;
+}
+
+.card{
+padding:25px;
+}
+
+}
