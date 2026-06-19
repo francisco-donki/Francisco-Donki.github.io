@@ -86,7 +86,7 @@ const countdown =
 document.getElementById("countdown");
 
 const targetDate =
-new Date("2026-06-15T15:45:00");
+new Date("2026-06-28T15:30:00");
 
 function updateCountdown() {
 
